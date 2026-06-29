@@ -1,0 +1,60 @@
+{
+  "common": {
+    "brand": "Dermovive Pharma",
+    "tagline": "Des soins prouvés par la science, conçus pour être aimés.",
+    "explore": "Explorer les produits",
+    "learnMore": "En savoir plus",
+    "viewAll": "Voir tout",
+    "comingSoon": "Bientôt disponible"
+  },
+  "nav": {
+    "home": "Accueil",
+    "products": "Produits",
+    "categories": "Catégories",
+    "about": "Notre histoire",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Élaboré par des dermatologues",
+      "title": "L'éclat, enraciné dans la science",
+      "subtitle": "Découvrez les soins et cosmétiques Dermovive — formulés par des pharmaciens, aimés par la peau.",
+      "cta": "Explorer la collection",
+      "secondaryCta": "Notre histoire"
+    },
+    "featured": {
+      "eyebrow": "Acheter par catégorie",
+      "title": "Trouvez votre rituel",
+      "body": "Des nettoyants doux aux traitements ciblés, chaque formule répond aux vrais besoins de la peau."
+    },
+    "story": {
+      "eyebrow": "Notre promesse",
+      "title": "Un soin de qualité pharmaceutique, joliment conçu",
+      "body": "Dermovive allie recherche clinique et luxe sensoriel. Propre, efficace et doux pour tous les types de peau.",
+      "cta": "Découvrir Dermovive"
+    },
+    "comingSoon": "Notre catalogue complet est en préparation. L'expérience produit complète arrive bientôt."
+  },
+  "footer": {
+    "tagline": "Soins et cosmétiques de qualité pharmaceutique, formulés avec soin.",
+    "explore": "Explorer",
+    "company": "Entreprise",
+    "rights": "© {year} Dermovive Pharma. Tous droits réservés.",
+    "newsletter": {
+      "title": "Rejoignez le cercle Dermovive",
+      "subtitle": "La science du soin, les nouveautés et les rituels — dans votre boîte mail.",
+      "placeholder": "Votre adresse e-mail",
+      "cta": "S'abonner"
+    }
+  },
+  "designSystem": {
+    "title": "Système de design",
+    "subtitle": "Le langage visuel de Dermovive Pharma — défini avant de construire les pages.",
+    "colors": "Palette de couleurs",
+    "typography": "Typographie",
+    "buttons": "Boutons",
+    "cards": "Cartes",
+    "sampleHeading": "L'éclat, enraciné dans la science",
+    "sampleBody": "Dermovive allie recherche clinique et luxe sensoriel — propre, efficace et doux pour tous les types de peau."
+  }
+}

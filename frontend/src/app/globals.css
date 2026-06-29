@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Dermovive Pharma — Design Tokens
+   Elegant soft-luxury: coral + deep teal, warm neutrals, editorial type.
+   Tailwind v4 CSS-first config: tokens below generate utilities
+   (e.g. bg-coral-500, text-teal-700, font-display, rounded-card).
+   `static` forces every token to be emitted as a CSS variable on :root,
+   so the full palette is usable via inline styles / arbitrary values
+   even when a given shade has no utility class in use yet.
+   ========================================================================== */
+@theme static {
+  /* Brand — Coral (primary / accent), base 500 = #E87A8E */
+  --color-coral-50: #fcf3f5;
+  --color-coral-100: #f9e5ea;
+  --color-coral-200: #f3cad5;
+  --color-coral-300: #edabbc;
+  --color-coral-400: #e991a6;
+  --color-coral-500: #e87a8e;
+  --color-coral-600: #d85c74;
+  --color-coral-700: #bc415c;
+  --color-coral-800: #97354a;
+  --color-coral-900: #79303f;
+
+  /* Brand — Teal (ink / depth), base 700 = #1C4A45 */
+  --color-teal-50: #eff6f5;
+  --color-teal-100: #d7e8e5;
+  --color-teal-200: #b0d1cc;
+  --color-teal-300: #82b3ac;
+  --color-teal-400: #57928a;
+  --color-teal-500: #3a746c;
+  --color-teal-600: #2a5b54;
+  --color-teal-700: #1c4a45;
+  --color-teal-800: #163a36;
+  --color-teal-900: #0f2926;
+  --color-teal-950: #0a1c1a;
+
+  /* Warm neutrals */
+  --color-cream: #fbf7f2;
+  --color-sand: #f2eae0;
+  --color-sand-dark: #e7dccd;
+  --color-ink: #20302e;
+  --color-muted: #6b7b78;
+
+  /* Semantic aliases */
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-coral-500);
+  --color-brand: var(--color-teal-700);
+
+  /* Typography (font CSS vars are injected by next/font in the layout) */
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: var(--font-arabic-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius scale */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Elevation — soft, warm-tinted shadows */
+  --shadow-soft: 0 1px 2px rgba(32, 48, 46, 0.04), 0 8px 24px rgba(32, 48, 46, 0.06);
+  --shadow-card: 0 2px 6px rgba(32, 48, 46, 0.05), 0 18px 40px rgba(32, 48, 46, 0.08);
+  --shadow-coral: 0 10px 30px rgba(232, 122, 142, 0.35);
+
+  /* Motion */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- Base layer ---- */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  /* Arabic locale uses the Arabic typeface across the UI */
+  html[lang="ar"] body {
+    font-family: var(--font-arabic);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-teal-800);
+  }
+
+  /* Arabic headings keep the Arabic typeface (the serif display is Latin-only) */
+  html[lang="ar"] :is(h1, h2, h3, h4) {
+    font-family: var(--font-arabic);
+    font-weight: 700;
+  }
+
+  ::selection {
+    background: var(--color-coral-200);
+    color: var(--color-teal-900);
+  }
+}
+
+/* ---- Reusable component classes ---- */
+@layer components {
+  .container-page {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+    max-width: 80rem;
+  }
+  @media (min-width: 1024px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  /* Eyebrow / kicker label */
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-coral-600);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

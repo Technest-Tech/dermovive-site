@@ -1,0 +1,11 @@
+# Local MySQL is used for the database (see backend/.env).
+# This compose file only provides an OPTIONAL mail catcher for local dev
+# (used later by contact / newsletter flows). Start it with: docker compose up -d
+services:
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: dermovive-mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI -> http://localhost:8025

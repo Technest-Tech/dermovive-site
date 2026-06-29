@@ -1,0 +1,60 @@
+{
+  "common": {
+    "brand": "Dermovive Pharma",
+    "tagline": "Science-led skincare, crafted to be loved.",
+    "explore": "Explore products",
+    "learnMore": "Learn more",
+    "viewAll": "View all",
+    "comingSoon": "Coming soon"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "about": "Our Story",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Dermatologically crafted",
+      "title": "Radiance, rooted in science",
+      "subtitle": "Discover Dermovive's curated skincare and cosmetics — formulated by pharmacists, loved by skin.",
+      "cta": "Explore the collection",
+      "secondaryCta": "Our story"
+    },
+    "featured": {
+      "eyebrow": "Shop by category",
+      "title": "Find your ritual",
+      "body": "From gentle cleansers to targeted treatments, every formula is built around real skin needs."
+    },
+    "story": {
+      "eyebrow": "Our promise",
+      "title": "Pharmacy-grade care, beautifully made",
+      "body": "Dermovive blends clinical research with sensorial luxury. Clean, effective, and kind to every skin type.",
+      "cta": "Discover Dermovive"
+    },
+    "comingSoon": "Our full catalog is being prepared. The complete product experience is coming soon."
+  },
+  "footer": {
+    "tagline": "Pharmacy-grade skincare and cosmetics, formulated with care.",
+    "explore": "Explore",
+    "company": "Company",
+    "rights": "© {year} Dermovive Pharma. All rights reserved.",
+    "newsletter": {
+      "title": "Join the Dermovive circle",
+      "subtitle": "Skincare science, new arrivals, and rituals — in your inbox.",
+      "placeholder": "Your email address",
+      "cta": "Subscribe"
+    }
+  },
+  "designSystem": {
+    "title": "Design System",
+    "subtitle": "The visual language of Dermovive Pharma — locked in before we build the pages.",
+    "colors": "Colour palette",
+    "typography": "Typography",
+    "buttons": "Buttons",
+    "cards": "Cards",
+    "sampleHeading": "Radiance, rooted in science",
+    "sampleBody": "Dermovive blends clinical research with sensorial luxury — clean, effective, and kind to every skin type."
+  }
+}

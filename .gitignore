@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Env (each app keeps its own .env.example committed)
+.env
+.env.local
+
+# Logs
+*.log
+
+# Node (frontend deps are ignored at root; see frontend/.gitignore too)
+node_modules/
+
+# PHP
+vendor/
