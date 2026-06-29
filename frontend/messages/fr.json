@@ -12,7 +12,9 @@
     "products": "Produits",
     "categories": "Catégories",
     "about": "Notre histoire",
-    "contact": "Contact"
+    "contact": "Contact",
+    "shop": "Boutique",
+    "menu": "Menu"
   },
   "home": {
     "hero": {
@@ -27,6 +29,29 @@
       "title": "Trouvez votre rituel",
       "body": "Des nettoyants doux aux traitements ciblés, chaque formule répond aux vrais besoins de la peau."
     },
+    "rails": {
+      "featured": {
+        "eyebrow": "Meilleures ventes",
+        "title": "Nos coups de cœur",
+        "subtitle": "Les formules que notre communauté choisit en premier."
+      },
+      "newest": {
+        "eyebrow": "Vient d'arriver",
+        "title": "Nouveautés",
+        "subtitle": "De nouvelles additions au rituel Dermovive."
+      }
+    },
+    "trust": {
+      "pharmacist": "Formulé par des pharmaciens",
+      "tested": "Testé dermatologiquement",
+      "clean": "Propre & sans cruauté",
+      "loved": "Conçu pour être aimé"
+    },
+    "slider": {
+      "prev": "Diapositive précédente",
+      "next": "Diapositive suivante",
+      "goTo": "Aller à la diapositive {n}"
+    },
     "story": {
       "eyebrow": "Notre promesse",
       "title": "Un soin de qualité pharmaceutique, joliment conçu",
@@ -35,10 +60,19 @@
     },
     "comingSoon": "Notre catalogue complet est en préparation. L'expérience produit complète arrive bientôt."
   },
+  "product": {
+    "badge": {
+      "new": "Nouveau",
+      "bestseller": "Best-seller",
+      "limited": "Édition limitée"
+    },
+    "save": "-{percent}%"
+  },
   "footer": {
     "tagline": "Soins et cosmétiques de qualité pharmaceutique, formulés avec soin.",
     "explore": "Explorer",
     "company": "Entreprise",
+    "contact": "Contact",
     "rights": "© {year} Dermovive Pharma. Tous droits réservés.",
     "newsletter": {
       "title": "Rejoignez le cercle Dermovive",

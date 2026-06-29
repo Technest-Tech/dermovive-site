@@ -39,7 +39,8 @@ products for now.
 
 Repo: **`/Users/ahmedomar/Documents/technest/Dermovive`** — its own git repo (the home dir
 `~/` is a *separate* git root; keep this isolated). Branch `main`. Commits so far:
-`4257ee2` Phase 0, `7baf602` Phase 1, plus **Phase 2 (public API)** — see `git log`.
+`4257ee2` Phase 0, `7baf602` Phase 1, plus **Phase 2 (public API)** and **Phase 3 (data-driven
+home + nav)** — see `git log`.
 
 ```
 Dermovive/
@@ -156,8 +157,8 @@ MySQL password has `$` → single-quote it in `.env`. Brand colors: coral `#E87A
 - `lib/api.ts` (`apiFetch<T>(path,{locale,next})` → sets `Accept-Language`, base
   `NEXT_PUBLIC_API_URL`), `lib/utils.ts` (`cn`). Design tokens in `globals.css`.
 - Verified: `/en /ar /fr` render with correct `dir`, localized content, all 3 fonts; build+lint pass.
-- **Known placeholders (intentional):** category-teaser names + trust-bar labels on the home page
-  are still hardcoded English (get replaced by translated API/CMS data in Phase 3/4).
+- **Note:** Phase 0's static home labels (category teasers, trust bar, hero) were replaced by
+  translated API data in Phase 3 (§7c). The page is now data-driven.
 
 ## 6) What exists — Phase 1 (catalog data model + Filament admin) ✅
 
@@ -241,29 +242,61 @@ committed; generated views/assets are gitignored.
 since products attach to leaf categories) — make subtree-aware later if a teaser needs it. No
 product images seeded, so `image`/`gallery` are null/empty.
 
-## 7b) NEXT TASK — Phase 3: Home + navigation, wired to the API
+## 7c) What exists — Phase 3 (Home + navigation, wired to the API) ✅
 
-Replace the static placeholders with real data from `/api/v1`. Frontend `apiFetch<T>` already
-sends `Accept-Language` and supports `next: { revalidate, tags }` for ISR.
+The home and chrome now render live `/api/v1` data in en/ar/fr. `npm run lint` + `npm run build`
+pass; verified with screenshots in all 3 locales (LTR + RTL).
+
+**Data layer** (`frontend/src/lib`): `types.ts` (API payload types), `queries.ts`
+(`getHome`/`getCategoryTree`/`getSettings` — each try/catch → safe empty so the **build never
+depends on the backend**), `format.ts` (`formatPrice` via `Intl.NumberFormat`, `discountPercent`,
+`resolveHeroLink`). Fetchers go through the existing `apiFetch`.
+
+**Home** (`src/app/[locale]/page.tsx`, async, fetches `/home`): `HeroSlider` → `TrustBar` (i18n) →
+`ProductRail` (featured) → `CategoryTeasers` → `ProductRail` (newest) → `Story` (i18n).
+- `components/home/HeroSlider.tsx` — Embla + manual autoplay (pauses on hover/focus/tab-hidden,
+  respects reduced-motion) + Framer Motion text, RTL via `direction`, arrows/dots, dark-gradient
+  fallback per slide + a full fallback hero when the API returns no slides.
+- `components/home/ProductRail.tsx` — Embla carousel + nav arrows; `CategoryTeasers.tsx` — grid.
+- `components/product/ProductCard.tsx` + `components/ui/MediaImage.tsx` (`next/image` with a seeded
+  branded gradient placeholder — no imagery seeded yet).
+
+**Chrome:** layout fetches the tree + settings once and passes them down.
+`components/layout/MegaMenu.tsx` (desktop hover/focus dropdown from `/categories`),
+`MobileMenu.tsx` (drawer), `Footer.tsx` Contact column wired to `/settings` (email/phone/address;
+tagline/newsletter stay i18n since settings aren't translatable). Badge labels are localized by
+`value` (`product.badge.*`) since the API's labels are English-only.
+
+**i18n:** added `nav.shop/menu`, `home.{trust,slider,rails}`, `product.{badge,save}`,
+`footer.contact` across all three message files.
+
+**Rendering/known:** data-driven pages are **SSG** (baked at `next build`, so the backend was up
+during the build; graceful fetchers bake fallback UI if it's down). Live data on every request via
+`npm run dev`. **ISR/revalidation is Phase 6.** Forward links (mega-menu, teasers, product cards,
+"View all") point at `/categories/{slug}`, `/products/{slug}`, `/products` — correct destinations
+that **404 until Phase 4/5**. Embla added no new dep (manual autoplay).
+
+## 7d) NEXT TASK — Phase 4: Catalog (category pages + product listing)
+
+Build the browsable catalog the home links into. APIs are ready: `GET /categories/{slug}`
+(`{ category, breadcrumbs, children, products }`) and `GET /products` (filters `category` incl.
+descendants, `tag`, `featured`, `q`, `sort`, `per_page`, `page`; paginated `{ data, meta, links }`).
 
 **Deliverables**
-- **Home hero slider** (Embla + Framer Motion) fed by `GET /home` → `hero[]` (title/subtitle/
-  cta_label/link{type,target}/image). Resolve `link` to a route (category/product/url).
-- **Featured + newest** product rails on home from `/home`; **category teasers** from
-  `/home` → `categories[]` (replaces the hardcoded English teaser names noted in §5).
-- **Header mega-menu** built from the category tree (`GET /categories`), plus the existing
-  language switcher; **footer** wired to `GET /settings`.
-- Keep it server-rendered where possible (`await getTranslations` in async server components);
-  read `frontend/node_modules/next/dist/docs/` before writing Next 16 code (see §4).
+- **Category pages** `app/[locale]/categories/[slug]/page.tsx`: multi-level breadcrumbs (from
+  `breadcrumbs`), subcategory grid (`children`), and a product grid. `params`/`searchParams` are
+  **Promises** (await them — see §4).
+- **Product listing** `app/[locale]/products/page.tsx`: grid of `ProductCard`s with **filters**
+  (skin type/concern via `tag`, category), **sort**, **search** (`q`), and **pagination** (drive
+  via URL `searchParams` so it's shareable/SSR-able). Add a `getProducts`/`getCategory` fetcher to
+  `lib/queries.ts` returning the typed envelope.
+- Reuse `ProductCard`, `MediaImage`, `formatPrice`, `dirFor`; keep filters RTL-aware.
 
-**Conventions:** new fetchers in `frontend/src/lib/` using `apiFetch`; type the API payloads;
-reuse the `dirFor()`/locale routing already in `src/i18n`. Don't hardcode the API origin (use
-`NEXT_PUBLIC_API_URL`).
+**Conventions:** read `frontend/node_modules/next/dist/docs/` before writing Next 16 code (§4);
+keep fetchers graceful; type payloads; don't hardcode the API origin (`NEXT_PUBLIC_API_URL`).
 
-## 8) Remaining roadmap (after Phase 3)
+## 8) Remaining roadmap (after Phase 4 — see §7d for Phase 4)
 
-- **Phase 4** — Catalog: category pages (multi-level breadcrumbs, subcategory grids), product
-  listing with filters (skin type/concern/category), sort, search, pagination.
 - **Phase 5** — Product detail (gallery, variant selector display, ingredients/benefits/usage tabs,
   related; disabled "Add to cart"/"Wishlist" slots + "Inquire" CTA), company/portfolio pages
   (Our Story, certifications, contact form UI), full SEO (per-locale metadata, hreflang ar/en/fr,
@@ -278,8 +311,8 @@ reuse the `dirFor()`/locale routing already in `src/i18n`. Don't hardcode the AP
 1. `cd backend && php artisan serve …` and `cd frontend && npm run dev` to confirm both boot;
    `php artisan migrate:fresh --seed` if the DB is empty; `php artisan test` should be green.
    Hit `/docs` and a few `/api/v1/*` endpoints (try `?locale=ar`) to see the live API shapes.
-2. Read `frontend/src/lib/api.ts`, `src/app/[locale]/page.tsx`, `src/components/layout/*`, the
-   `src/i18n/*` routing, and the `/home` + `/categories` payloads you'll be binding.
-3. Build Phase 3 (§7b), verify by running the site + screenshots, then report and ask before
-   starting Phase 4.
+2. Read `frontend/src/lib/{api,queries,types,format}.ts`, `src/app/[locale]/page.tsx`,
+   `src/components/{home,product}/*`, and the `/products` + `/categories/{slug}` payloads.
+3. Build Phase 4 (§7d), verify by running the site + screenshots, then report and ask before
+   starting Phase 5.
 ```

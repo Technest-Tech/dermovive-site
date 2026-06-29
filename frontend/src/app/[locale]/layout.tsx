@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing, dirFor } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { getCategoryTree, getSettings } from "@/lib/queries";
 import "../globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -66,13 +67,19 @@ export default async function LocaleLayout({
   // Enable static rendering for this locale.
   setRequestLocale(locale);
 
+  // Shared chrome data — category tree (nav) and site settings (footer).
+  const [categories, settings] = await Promise.all([
+    getCategoryTree(locale),
+    getSettings(locale),
+  ]);
+
   return (
     <html lang={locale} dir={dirFor(locale)} className={fontVars}>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider>
-          <Header />
+          <Header categories={categories} />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer settings={settings} />
         </NextIntlClientProvider>
       </body>
     </html>

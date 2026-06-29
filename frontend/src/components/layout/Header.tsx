@@ -3,15 +3,16 @@ import { Link } from "@/i18n/navigation";
 import { buttonClasses } from "@/components/ui/Button";
 import { Logo } from "./Logo";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { MegaMenu } from "./MegaMenu";
+import { MobileMenu } from "./MobileMenu";
+import type { Category } from "@/lib/types";
 
-const navItems = [
-  { key: "products", href: "/#collection" },
-  { key: "categories", href: "/#categories" },
+const staticNav = [
   { key: "about", href: "/#story" },
   { key: "contact", href: "/#contact" },
 ] as const;
 
-export function Header() {
+export function Header({ categories }: { categories: Category[] }) {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
 
@@ -21,7 +22,8 @@ export function Header() {
         <Logo />
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {navItems.map((item) => (
+          <MegaMenu categories={categories} />
+          {staticNav.map((item) => (
             <Link
               key={item.key}
               href={item.href}
@@ -32,7 +34,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <LanguageSwitcher />
           <Link
             href="/#collection"
@@ -40,6 +42,7 @@ export function Header() {
           >
             {tc("explore")}
           </Link>
+          <MobileMenu categories={categories} />
         </div>
       </div>
     </header>

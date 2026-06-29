@@ -1,23 +1,25 @@
 import { useTranslations } from "next-intl";
-import { Send, MessageCircle, Mail } from "lucide-react";
+import { Send, MessageCircle, Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 import { buttonClasses } from "@/components/ui/Button";
+import type { Settings } from "@/lib/types";
 
 const exploreLinks = [
   { key: "products", href: "/#collection" },
   { key: "categories", href: "/#categories" },
-] as const;
-
-const companyLinks = [
   { key: "about", href: "/#story" },
-  { key: "contact", href: "/#contact" },
 ] as const;
 
-export function Footer() {
+export function Footer({ settings }: { settings: Settings | null }) {
   const t = useTranslations("footer");
   const tn = useTranslations("nav");
   const year = String(new Date().getFullYear());
+
+  const email = settings?.contact_email;
+  const phone = settings?.contact_phone;
+  const address = settings?.address;
+  const hasContact = Boolean(email || phone || address);
 
   return (
     <footer id="contact" className="mt-24 bg-teal-800 text-teal-100">
@@ -46,7 +48,7 @@ export function Footer() {
 
       {/* Columns */}
       <div className="container-page grid gap-10 border-t border-cream/10 py-12 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="sm:col-span-2 lg:col-span-2">
+        <div className="sm:col-span-2">
           <Logo className="brightness-0 invert" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-teal-100/75">
             {t("tagline")}
@@ -68,10 +70,10 @@ export function Footer() {
             {t("explore")}
           </h4>
           <ul className="mt-4 space-y-3 text-sm">
-            {exploreLinks.map((l) => (
-              <li key={l.key}>
-                <Link href={l.href} className="text-teal-100/75 hover:text-coral-300">
-                  {tn(l.key)}
+            {exploreLinks.map((link) => (
+              <li key={link.key}>
+                <Link href={link.href} className="text-teal-100/75 hover:text-coral-300">
+                  {tn(link.key)}
                 </Link>
               </li>
             ))}
@@ -80,17 +82,43 @@ export function Footer() {
 
         <div>
           <h4 className="text-sm font-semibold uppercase tracking-wider text-cream">
-            {t("company")}
+            {t("contact")}
           </h4>
-          <ul className="mt-4 space-y-3 text-sm">
-            {companyLinks.map((l) => (
-              <li key={l.key}>
-                <Link href={l.href} className="text-teal-100/75 hover:text-coral-300">
-                  {tn(l.key)}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {hasContact ? (
+            <ul className="mt-4 space-y-3 text-sm text-teal-100/75">
+              {email && (
+                <li>
+                  <a
+                    href={`mailto:${email}`}
+                    className="inline-flex items-center gap-2 hover:text-coral-300"
+                  >
+                    <Mail className="h-4 w-4 shrink-0" />
+                    {email}
+                  </a>
+                </li>
+              )}
+              {phone && (
+                <li>
+                  <a
+                    href={`tel:${phone.replace(/\s+/g, "")}`}
+                    dir="ltr"
+                    className="inline-flex items-center gap-2 hover:text-coral-300 rtl:flex-row-reverse"
+                  >
+                    <Phone className="h-4 w-4 shrink-0" />
+                    {phone}
+                  </a>
+                </li>
+              )}
+              {address && (
+                <li className="inline-flex items-center gap-2">
+                  <MapPin className="h-4 w-4 shrink-0" />
+                  {address}
+                </li>
+              )}
+            </ul>
+          ) : (
+            <p className="mt-4 text-sm text-teal-100/75">{t("tagline")}</p>
+          )}
         </div>
       </div>
 
