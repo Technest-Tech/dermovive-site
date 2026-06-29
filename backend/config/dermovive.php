@@ -27,4 +27,17 @@ return [
         'fr' => 'Français',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Public API response cache
+    |--------------------------------------------------------------------------
+    |
+    | TTL (seconds) for cached read-only /api/v1 responses. Keys are namespaced
+    | per locale + query string. Set to 0 to disable (handy in local debugging;
+    | tests run on the array store so they are isolated regardless).
+    |
+    */
+
+    'api_cache_ttl' => (int) env('API_CACHE_TTL', 300),
+
 ];
