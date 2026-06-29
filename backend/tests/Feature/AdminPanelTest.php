@@ -1,0 +1,77 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Category;
+use App\Models\HeroSlide;
+use App\Models\Page;
+use App\Models\Product;
+use App\Models\Tag;
+use App\Models\User;
+use Database\Seeders\CatalogSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class AdminPanelTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected User $admin;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(CatalogSeeder::class);
+        $this->admin = User::factory()->create();
+    }
+
+    public function test_catalog_was_seeded(): void
+    {
+        $this->assertSame(11, Category::count());
+        $this->assertSame(8, Product::count());
+        $this->assertSame(11, Tag::count());
+        $this->assertSame(3, HeroSlide::count());
+        $this->assertSame(2, Page::count());
+    }
+
+    public function test_category_tree_is_three_levels_deep(): void
+    {
+        $deepest = Category::query()->withDepth()->get()->max('depth');
+        $this->assertSame(2, $deepest, 'Expected a 3-level tree (depth 0,1,2).');
+    }
+
+    public function test_all_admin_pages_render(): void
+    {
+        $this->actingAs($this->admin);
+
+        $category = Category::query()->first();
+        $product = Product::query()->first();
+        $tag = Tag::query()->first();
+        $slide = HeroSlide::query()->first();
+        $page = Page::query()->first();
+
+        $urls = [
+            '/admin',
+            '/admin/categories',
+            '/admin/categories/create',
+            "/admin/categories/{$category->id}/edit",
+            '/admin/products',
+            '/admin/products/create',
+            "/admin/products/{$product->id}/edit",
+            '/admin/tags',
+            '/admin/tags/create',
+            "/admin/tags/{$tag->id}/edit",
+            '/admin/hero-slides',
+            '/admin/hero-slides/create',
+            "/admin/hero-slides/{$slide->id}/edit",
+            '/admin/pages',
+            '/admin/pages/create',
+            "/admin/pages/{$page->id}/edit",
+            '/admin/manage-settings',
+        ];
+
+        foreach ($urls as $url) {
+            $this->get($url)->assertSuccessful();
+        }
+    }
+}
