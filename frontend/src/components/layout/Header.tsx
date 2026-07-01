@@ -8,8 +8,9 @@ import { MobileMenu } from "./MobileMenu";
 import type { Category } from "@/lib/types";
 
 const staticNav = [
-  { key: "about", href: "/#story" },
-  { key: "contact", href: "/#contact" },
+  { key: "products", href: "/products" },
+  { key: "about", href: "/our-story" },
+  { key: "contact", href: "/contact" },
 ] as const;
 
 export function Header({ categories }: { categories: Category[] }) {

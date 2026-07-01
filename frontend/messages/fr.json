@@ -66,7 +66,121 @@
       "bestseller": "Best-seller",
       "limited": "Édition limitée"
     },
-    "save": "-{percent}%"
+    "save": "-{percent}%",
+    "about": "À propos de ce produit",
+    "tagsLabel": "Idéal pour",
+    "commerceNote": "La commande en ligne arrive bientôt. Contactez-nous, notre équipe se fera un plaisir de vous aider.",
+    "gallery": {
+      "view": "Voir l’image {n}"
+    },
+    "variant": {
+      "label": "Format"
+    },
+    "cta": {
+      "inquire": "Se renseigner sur ce produit",
+      "addToCart": "Ajouter au panier",
+      "wishlist": "Ajouter aux favoris",
+      "comingSoon": "Bientôt"
+    },
+    "tabs": {
+      "label": "Détails du produit",
+      "benefits": "Bienfaits",
+      "ingredients": "Ingrédients",
+      "howToUse": "Conseils d’utilisation"
+    },
+    "related": {
+      "eyebrow": "Complétez le rituel",
+      "title": "Vous aimerez aussi"
+    }
+  },
+  "catalog": {
+    "eyebrow": "Catalogue",
+    "breadcrumbHome": "Accueil",
+    "allProducts": "Tous les produits",
+    "allProductsSubtitle": "Parcourez toute la gamme Dermovive. Filtrez par type de peau, préoccupation et catégorie pour trouver votre rituel.",
+    "results": "{count, plural, =0 {Aucun produit} one {# produit} other {# produits}}",
+    "productCount": "{count, plural, =0 {Aucun produit} one {# produit} other {# produits}}",
+    "subcategories": "Explorer les catégories",
+    "products": "Produits",
+    "viewAll": "Tout voir dans {category}",
+    "search": {
+      "placeholder": "Rechercher des produits…"
+    },
+    "filters": {
+      "category": "Catégorie",
+      "allCategories": "Toutes les catégories",
+      "skin_type": "Type de peau",
+      "concern": "Préoccupation",
+      "highlight": "Atouts",
+      "clear": "Tout effacer"
+    },
+    "sort": {
+      "label": "Trier",
+      "newest": "Les plus récents",
+      "price": "Prix : croissant",
+      "price_desc": "Prix : décroissant",
+      "name": "Nom : A–Z"
+    },
+    "empty": {
+      "title": "Aucun produit trouvé",
+      "body": "Essayez d’ajuster vos filtres ou votre recherche.",
+      "reset": "Effacer les filtres"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "prev": "Précédent",
+      "next": "Suivant"
+    }
+  },
+  "about": {
+    "eyebrow": "Notre histoire",
+    "valuesTitle": "Nos valeurs",
+    "values": {
+      "science": {
+        "title": "Guidé par la science",
+        "body": "Chaque formule est développée par des pharmaciens et fondée sur la recherche dermatologique."
+      },
+      "clean": {
+        "title": "Propre et doux",
+        "body": "Des ingrédients choisis avec soin — sans cruauté et doux pour tous les types de peau."
+      },
+      "trilingual": {
+        "title": "Des soins dans votre langue",
+        "body": "Conseils et étiquettes en arabe, anglais et français, pour des soins qui vous ressemblent."
+      },
+      "tested": {
+        "title": "Testé dermatologiquement",
+        "body": "Des formules rigoureusement testées, dignes de confiance, pour des résultats visibles sans compromis."
+      }
+    },
+    "certsTitle": "Fiable et certifié",
+    "certs": {
+      "derm": "Testé dermatologiquement",
+      "cruelty": "Sans cruauté",
+      "vegan": "Convient aux véganes",
+      "quality": "Qualité pharmaceutique"
+    },
+    "ctaTitle": "Découvrez la collection",
+    "ctaBody": "Explorez des soins et cosmétiques conçus par des pharmaciens et aimés par la peau.",
+    "ctaButton": "Explorer les produits"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "intro": "Des questions sur nos produits ou votre routine ? Notre équipe est là pour vous aider.",
+    "detailsTitle": "Nous joindre",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "form": {
+      "title": "Envoyez-nous un message",
+      "note": "Ce formulaire est un aperçu — la messagerie en ligne arrive bientôt. En attendant, écrivez-nous ou appelez-nous, nous répondrons rapidement.",
+      "name": "Votre nom",
+      "email": "Votre e-mail",
+      "subject": "Sujet",
+      "message": "Message",
+      "submit": "Envoyer le message",
+      "soon": "Bientôt"
+    }
   },
   "footer": {
     "tagline": "Soins et cosmétiques de qualité pharmaceutique, formulés avec soin.",

@@ -286,3 +286,49 @@ endpoints:
     controller: null
     method: null
     route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/tags
+    metadata:
+      custom: []
+      groupName: Catalog
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List filter tags'
+      description: |-
+        Active tags that are attached to at least one active product, grouped by
+        type (skin type, concern, highlight) in a stable order. Powers the catalog
+        filter UI; tag names are resolved to the negotiated locale. Group `label`
+        is English — the storefront localises headings by `type`.
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+      Accept-Language: en
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"data":[{"type":"skin_type","label":"Skin type","tags":[{"id":3,"type":"skin_type","type_label":"Skin type","slug":"combination","name":"Combination"},{"id":2,"type":"skin_type","type_label":"Skin type","slug":"dry","name":"Dry"},{"id":1,"type":"skin_type","type_label":"Skin type","slug":"oily","name":"Oily"},{"id":4,"type":"skin_type","type_label":"Skin type","slug":"sensitive","name":"Sensitive"}]},{"type":"concern","label":"Concern","tags":[{"id":5,"type":"concern","type_label":"Concern","slug":"acne","name":"Acne"},{"id":7,"type":"concern","type_label":"Concern","slug":"brightening","name":"Brightening"},{"id":8,"type":"concern","type_label":"Concern","slug":"hydration","name":"Hydration"}]},{"type":"highlight","label":"Highlight","tags":[{"id":11,"type":"highlight","type_label":"Highlight","slug":"dermatologist-tested","name":"Dermatologist-tested"},{"id":10,"type":"highlight","type_label":"Highlight","slug":"fragrance-free","name":"Fragrance-free"},{"id":9,"type":"highlight","type_label":"Highlight","slug":"vegan","name":"Vegan"}]}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          content-language: en
+          vary: Origin
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

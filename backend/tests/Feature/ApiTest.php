@@ -103,6 +103,30 @@ class ApiTest extends TestCase
         $this->assertSame($prices, collect($prices)->sort()->values()->all());
     }
 
+    public function test_tags_grouped_by_type(): void
+    {
+        $res = $this->getJson('/api/v1/tags')->assertOk();
+
+        $res->assertJsonStructure([
+            'data' => [['type', 'label', 'tags' => [['id', 'type', 'slug', 'name']]]],
+        ]);
+
+        $types = collect($res->json('data'))->pluck('type')->all();
+        $this->assertContains('skin_type', $types);
+        $this->assertContains('concern', $types);
+
+        // Skin type comes before concern (stable section order).
+        $this->assertLessThan(
+            array_search('concern', $types, true),
+            array_search('skin_type', $types, true),
+        );
+
+        // Names resolve to the negotiated locale.
+        $ar = $this->getJson('/api/v1/tags', ['Accept-Language' => 'ar'])->json('data');
+        $arTags = collect($ar)->pluck('tags')->flatten(1)->pluck('name');
+        $this->assertTrue($arTags->contains('الترطيب'));
+    }
+
     public function test_product_show_full_payload(): void
     {
         $res = $this->getJson('/api/v1/products/hydra-glow-serum')->assertOk();

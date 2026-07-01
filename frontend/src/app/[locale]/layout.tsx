@@ -7,6 +7,7 @@ import { routing, dirFor } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getCategoryTree, getSettings } from "@/lib/queries";
+import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -43,7 +44,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "common" });
   return {
-    metadataBase: new URL("http://localhost:3000"),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: t("brand"),
       template: `%s · ${t("brand")}`,

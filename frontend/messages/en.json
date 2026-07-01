@@ -66,7 +66,121 @@
       "bestseller": "Bestseller",
       "limited": "Limited"
     },
-    "save": "-{percent}%"
+    "save": "-{percent}%",
+    "about": "About this product",
+    "tagsLabel": "Good for",
+    "commerceNote": "Online ordering is coming soon. Reach out and our team will be glad to help you.",
+    "gallery": {
+      "view": "View image {n}"
+    },
+    "variant": {
+      "label": "Size"
+    },
+    "cta": {
+      "inquire": "Inquire about this product",
+      "addToCart": "Add to cart",
+      "wishlist": "Save to wishlist",
+      "comingSoon": "Coming soon"
+    },
+    "tabs": {
+      "label": "Product details",
+      "benefits": "Benefits",
+      "ingredients": "Ingredients",
+      "howToUse": "How to use"
+    },
+    "related": {
+      "eyebrow": "Complete the ritual",
+      "title": "You may also like"
+    }
+  },
+  "catalog": {
+    "eyebrow": "Catalog",
+    "breadcrumbHome": "Home",
+    "allProducts": "All products",
+    "allProductsSubtitle": "Browse the full Dermovive range. Filter by skin type, concern and category to find your ritual.",
+    "results": "{count, plural, =0 {No products} one {# product} other {# products}}",
+    "productCount": "{count, plural, =0 {No products} one {# product} other {# products}}",
+    "subcategories": "Explore categories",
+    "products": "Products",
+    "viewAll": "View all in {category}",
+    "search": {
+      "placeholder": "Search products…"
+    },
+    "filters": {
+      "category": "Category",
+      "allCategories": "All categories",
+      "skin_type": "Skin type",
+      "concern": "Concern",
+      "highlight": "Highlights",
+      "clear": "Clear all"
+    },
+    "sort": {
+      "label": "Sort",
+      "newest": "Newest",
+      "price": "Price: low to high",
+      "price_desc": "Price: high to low",
+      "name": "Name: A–Z"
+    },
+    "empty": {
+      "title": "No products found",
+      "body": "Try adjusting your filters or search terms.",
+      "reset": "Clear filters"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "prev": "Previous",
+      "next": "Next"
+    }
+  },
+  "about": {
+    "eyebrow": "Our Story",
+    "valuesTitle": "What we stand for",
+    "values": {
+      "science": {
+        "title": "Science-led",
+        "body": "Every formula is developed by pharmacists and grounded in dermatological research."
+      },
+      "clean": {
+        "title": "Clean & kind",
+        "body": "Thoughtfully sourced ingredients — cruelty-free and gentle on every skin type."
+      },
+      "trilingual": {
+        "title": "Care in your language",
+        "body": "Guidance and labels in Arabic, English and French, so skincare feels personal."
+      },
+      "tested": {
+        "title": "Dermatologically tested",
+        "body": "Rigorously tested formulas you can trust, for visible results without compromise."
+      }
+    },
+    "certsTitle": "Trusted & certified",
+    "certs": {
+      "derm": "Dermatologically tested",
+      "cruelty": "Cruelty-free",
+      "vegan": "Vegan-friendly",
+      "quality": "Pharmacy-grade quality"
+    },
+    "ctaTitle": "Discover the collection",
+    "ctaBody": "Explore skincare and cosmetics crafted by pharmacists and loved by skin.",
+    "ctaButton": "Explore products"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "intro": "Questions about our products or your routine? Our team is here to help.",
+    "detailsTitle": "Reach us",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "form": {
+      "title": "Send us a message",
+      "note": "This form is a preview — online messaging goes live soon. Meanwhile, email or call us and we'll respond quickly.",
+      "name": "Your name",
+      "email": "Your email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send message",
+      "soon": "Coming soon"
+    }
   },
   "footer": {
     "tagline": "Pharmacy-grade skincare and cosmetics, formulated with care.",

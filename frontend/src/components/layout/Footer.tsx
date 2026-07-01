@@ -6,9 +6,9 @@ import { buttonClasses } from "@/components/ui/Button";
 import type { Settings } from "@/lib/types";
 
 const exploreLinks = [
-  { key: "products", href: "/#collection" },
-  { key: "categories", href: "/#categories" },
-  { key: "about", href: "/#story" },
+  { key: "products", href: "/products" },
+  { key: "about", href: "/our-story" },
+  { key: "contact", href: "/contact" },
 ] as const;
 
 export function Footer({ settings }: { settings: Settings | null }) {

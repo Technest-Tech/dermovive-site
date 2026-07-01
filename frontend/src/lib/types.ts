@@ -5,12 +5,15 @@
  * `backend/app/Http/Resources`.
  */
 
-/** Absolute media URLs (original + any generated conversions), or null when empty. */
-export type MediaUrls = {
+/** Absolute media URLs (original + any generated conversions). */
+export type MediaImageUrls = {
   original: string;
   thumb?: string;
   preview?: string;
-} | null;
+};
+
+/** A single image's URLs, or null when the collection is empty. */
+export type MediaUrls = MediaImageUrls | null;
 
 export type ProductBadge = {
   value: "new" | "bestseller" | "limited";
@@ -75,4 +78,95 @@ export type Settings = {
   contact_phone?: string;
   address?: string;
   [key: string]: string | undefined;
+};
+
+/** A single filter tag (skin type / concern / highlight), locale-resolved. */
+export type Tag = {
+  id: number;
+  type: string | null;
+  type_label: string | null;
+  slug: string;
+  name: string;
+};
+
+/** Tags grouped by type for the catalog filter UI. `type` keys the localised heading. */
+export type TagGroup = {
+  type: string;
+  label: string;
+  tags: Tag[];
+};
+
+/** `GET /categories/{slug}` — a category with its ancestry, children and products. */
+export type CategoryDetail = {
+  category: Category;
+  breadcrumbs: Category[];
+  children: Category[];
+  products: ProductCard[];
+};
+
+/** Laravel paginator metadata (subset we use). */
+export type PaginationMeta = {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+  from: number | null;
+  to: number | null;
+};
+
+export type PaginationLinks = {
+  first: string | null;
+  last: string | null;
+  prev: string | null;
+  next: string | null;
+};
+
+/** Paginated list envelope (`GET /products`). */
+export type Paginated<T> = {
+  data: T[];
+  meta: PaginationMeta;
+  links: PaginationLinks;
+};
+
+/** A purchasable variant (size / shade). `name` is a plain, non-translatable string. */
+export type ProductVariant = {
+  id: number;
+  name: string;
+  sku: string | null;
+  price: number | null;
+  is_default: boolean;
+};
+
+/** Full product detail (`GET /products/{slug}`) — extends the card with rich content. */
+export type ProductDetail = ProductCard & {
+  sku: string | null;
+  description: string | null;
+  ingredients: string | null;
+  benefits: string[];
+  how_to_use: string[];
+  gallery: MediaImageUrls[];
+  variants: ProductVariant[];
+  tags: Tag[];
+  categories: Category[];
+  meta: { title: string | null; description: string | null };
+  related: ProductCard[];
+};
+
+/** A CMS page (`GET /pages/{slug}`) — `body` is trusted, admin-authored HTML. */
+export type PageContent = {
+  slug: string;
+  title: string;
+  body: string | null;
+  meta: { title: string | null; description: string | null };
+};
+
+/** Supported filters for the product listing — mirrors the API query params. */
+export type ProductQuery = {
+  category?: string;
+  tag?: string;
+  q?: string;
+  sort?: string;
+  featured?: string;
+  page?: string;
+  per_page?: string;
 };

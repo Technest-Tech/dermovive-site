@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\PageController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SettingController;
+use App\Http\Controllers\Api\V1\TagController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,8 @@ Route::prefix('v1')->name('api.v1.')->middleware(SetLocale::class)->group(functi
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+
+    Route::get('/tags', [TagController::class, 'index'])->name('tags.index');
 
     Route::get('/pages/{slug}', [PageController::class, 'show'])->name('pages.show');
 
