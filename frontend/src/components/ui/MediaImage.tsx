@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { SerumBottle, CreamJar, Sparkle } from "@/components/decor/BrandDecor";
 
 /**
  * Renders a remote API image with `next/image` when a URL is present, and an
@@ -55,18 +56,34 @@ export function MediaImage({
     );
   }
 
-  const gradient = gradients[seededIndex(seed || alt, gradients.length)];
+  const key = seed || alt;
+  const gradient = gradients[seededIndex(key, gradients.length)];
+  const Product = seededIndex(key, 2) === 0 ? SerumBottle : CreamJar;
 
   return (
     <div
       aria-hidden
       className={cn(
-        "grid h-full w-full place-items-center bg-gradient-to-br",
+        "relative grid h-full w-full place-items-center overflow-hidden bg-gradient-to-br",
         gradient,
         className,
       )}
     >
-      <span className="select-none font-display text-6xl text-teal-700/15">D</span>
+      {/* dotted texture for depth */}
+      <div
+        className="absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(28,74,69,0.14) 1px, transparent 1.4px)",
+          backgroundSize: "14px 14px",
+        }}
+      />
+      <Sparkle className="absolute end-[16%] top-[14%] h-6 w-6 text-coral-400/50" />
+      <Sparkle className="absolute start-[18%] bottom-[20%] h-4 w-4 text-teal-500/40" />
+      <Product className="relative h-[62%] w-auto text-teal-700/25" />
+      <span className="absolute bottom-3 select-none font-display text-xs tracking-[0.3em] text-teal-700/30 uppercase">
+        Dermovive
+      </span>
     </div>
   );
 }

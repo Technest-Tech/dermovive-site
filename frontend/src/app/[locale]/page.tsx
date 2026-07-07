@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { FlaskConical, Leaf, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
@@ -10,6 +11,8 @@ import { ProductRail } from "@/components/home/ProductRail";
 import { CategoryTeasers } from "@/components/home/CategoryTeasers";
 import { getHome } from "@/lib/queries";
 import { alternatesFor } from "@/lib/seo";
+
+const COLLECTION_IMAGE = "/brand/collection-dermo-white.jpg";
 
 export async function generateMetadata({
   params,
@@ -105,10 +108,15 @@ function Story() {
     <section id="story" className="scroll-mt-24 bg-teal-800 py-20 text-teal-50">
       <div className="container-page grid items-center gap-12 lg:grid-cols-2">
         <FadeIn>
-          <div className="relative aspect-square w-full max-w-md rounded-[2.5rem] bg-gradient-to-tr from-coral-400/40 via-teal-600 to-teal-700 ring-1 ring-cream/10">
-            <div className="absolute inset-0 grid place-items-center">
-              <Sparkles className="h-16 w-16 text-coral-200" />
-            </div>
+          <div className="texture-grain relative aspect-square w-full max-w-md overflow-hidden rounded-[2.5rem] bg-cream ring-1 ring-cream/10">
+            <Image
+              src={COLLECTION_IMAGE}
+              alt="Dermovive skincare collection"
+              fill
+              sizes="(min-width: 1024px) 448px, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-teal-950/45 via-transparent to-transparent" />
           </div>
         </FadeIn>
         <FadeIn delay={0.1}>

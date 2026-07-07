@@ -2,9 +2,11 @@
  * Typed, locale-aware fetchers for the public API. Each one degrades
  * gracefully: on a network/HTTP error it logs and returns a safe empty value
  * so pages still render (with fallbacks) and `next build` never depends on the
- * backend being reachable. Time-based revalidation/ISR is deferred to Phase 6.
+ * backend being reachable. Each fetch carries an ISR window + cache tags so
+ * pages refresh in the background and can be busted on demand (see `./cache`).
  */
 import { apiFetch } from "./api";
+import { REVALIDATE_SECONDS, cacheTags } from "./cache";
 import type {
   Category,
   CategoryDetail,
@@ -29,7 +31,10 @@ const EMPTY_PRODUCTS: Paginated<ProductCard> = {
 
 export async function getHome(locale: string): Promise<HomePayload | null> {
   try {
-    const { data } = await apiFetch<Envelope<HomePayload>>("/home", { locale });
+    const { data } = await apiFetch<Envelope<HomePayload>>("/home", {
+      locale,
+      next: { revalidate: REVALIDATE_SECONDS, tags: [cacheTags.home] },
+    });
     return data;
   } catch (error) {
     console.error("[api] getHome failed:", error);
@@ -39,7 +44,10 @@ export async function getHome(locale: string): Promise<HomePayload | null> {
 
 export async function getCategoryTree(locale: string): Promise<Category[]> {
   try {
-    const { data } = await apiFetch<Envelope<Category[]>>("/categories", { locale });
+    const { data } = await apiFetch<Envelope<Category[]>>("/categories", {
+      locale,
+      next: { revalidate: REVALIDATE_SECONDS, tags: [cacheTags.categories] },
+    });
     return data;
   } catch (error) {
     console.error("[api] getCategoryTree failed:", error);
@@ -49,7 +57,10 @@ export async function getCategoryTree(locale: string): Promise<Category[]> {
 
 export async function getSettings(locale: string): Promise<Settings | null> {
   try {
-    const { data } = await apiFetch<Envelope<Settings>>("/settings", { locale });
+    const { data } = await apiFetch<Envelope<Settings>>("/settings", {
+      locale,
+      next: { revalidate: REVALIDATE_SECONDS, tags: [cacheTags.settings] },
+    });
     return data;
   } catch (error) {
     console.error("[api] getSettings failed:", error);
@@ -65,7 +76,13 @@ export async function getCategory(
   try {
     const { data } = await apiFetch<Envelope<CategoryDetail>>(
       `/categories/${encodeURIComponent(slug)}`,
-      { locale },
+      {
+        locale,
+        next: {
+          revalidate: REVALIDATE_SECONDS,
+          tags: [cacheTags.categories, cacheTags.category(slug)],
+        },
+      },
     );
     return data;
   } catch (error) {
@@ -88,7 +105,10 @@ export async function getProducts(
   try {
     return await apiFetch<Paginated<ProductCard>>(
       `/products${qs ? `?${qs}` : ""}`,
-      { locale },
+      {
+        locale,
+        next: { revalidate: REVALIDATE_SECONDS, tags: [cacheTags.products] },
+      },
     );
   } catch (error) {
     console.error("[api] getProducts failed:", error);
@@ -99,7 +119,10 @@ export async function getProducts(
 /** Filter tags grouped by type (skin type / concern / highlight). Empty on failure. */
 export async function getTags(locale: string): Promise<TagGroup[]> {
   try {
-    const { data } = await apiFetch<Envelope<TagGroup[]>>("/tags", { locale });
+    const { data } = await apiFetch<Envelope<TagGroup[]>>("/tags", {
+      locale,
+      next: { revalidate: REVALIDATE_SECONDS, tags: [cacheTags.filters] },
+    });
     return data;
   } catch (error) {
     console.error("[api] getTags failed:", error);
@@ -115,7 +138,13 @@ export async function getProduct(
   try {
     const { data } = await apiFetch<Envelope<ProductDetail>>(
       `/products/${encodeURIComponent(slug)}`,
-      { locale },
+      {
+        locale,
+        next: {
+          revalidate: REVALIDATE_SECONDS,
+          tags: [cacheTags.products, cacheTags.product(slug)],
+        },
+      },
     );
     return data;
   } catch (error) {
@@ -132,7 +161,13 @@ export async function getPage(
   try {
     const { data } = await apiFetch<Envelope<PageContent>>(
       `/pages/${encodeURIComponent(slug)}`,
-      { locale },
+      {
+        locale,
+        next: {
+          revalidate: REVALIDATE_SECONDS,
+          tags: [cacheTags.pages, cacheTags.page(slug)],
+        },
+      },
     );
     return data;
   } catch (error) {

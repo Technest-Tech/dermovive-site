@@ -5,7 +5,8 @@
     "explore": "Explore products",
     "learnMore": "Learn more",
     "viewAll": "View all",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "skipToContent": "Skip to content"
   },
   "nav": {
     "home": "Home",
@@ -107,6 +108,7 @@
       "placeholder": "Search products…"
     },
     "filters": {
+      "title": "Filters",
       "category": "Category",
       "allCategories": "All categories",
       "skin_type": "Skin type",
@@ -181,6 +183,12 @@
       "submit": "Send message",
       "soon": "Coming soon"
     }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you're looking for doesn't exist or may have moved.",
+    "home": "Back to home",
+    "browse": "Browse products"
   },
   "footer": {
     "tagline": "Pharmacy-grade skincare and cosmetics, formulated with care.",

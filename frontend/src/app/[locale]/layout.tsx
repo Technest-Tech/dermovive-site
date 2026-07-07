@@ -69,17 +69,26 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   // Shared chrome data — category tree (nav) and site settings (footer).
-  const [categories, settings] = await Promise.all([
+  const [categories, settings, t] = await Promise.all([
     getCategoryTree(locale),
     getSettings(locale),
+    getTranslations({ locale, namespace: "common" }),
   ]);
 
   return (
     <html lang={locale} dir={dirFor(locale)} className={fontVars}>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider>
+          <a
+            href="#content"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:m-4 focus:rounded-pill focus:bg-teal-800 focus:px-5 focus:py-2 focus:text-sm focus:font-medium focus:text-cream"
+          >
+            {t("skipToContent")}
+          </a>
           <Header categories={categories} />
-          <main className="flex-1">{children}</main>
+          <main id="content" className="flex-1">
+            {children}
+          </main>
           <Footer settings={settings} />
         </NextIntlClientProvider>
       </body>

@@ -5,7 +5,8 @@
     "explore": "Explorer les produits",
     "learnMore": "En savoir plus",
     "viewAll": "Voir tout",
-    "comingSoon": "Bientôt disponible"
+    "comingSoon": "Bientôt disponible",
+    "skipToContent": "Aller au contenu"
   },
   "nav": {
     "home": "Accueil",
@@ -107,6 +108,7 @@
       "placeholder": "Rechercher des produits…"
     },
     "filters": {
+      "title": "Filtres",
       "category": "Catégorie",
       "allCategories": "Toutes les catégories",
       "skin_type": "Type de peau",
@@ -181,6 +183,12 @@
       "submit": "Envoyer le message",
       "soon": "Bientôt"
     }
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "body": "La page que vous recherchez n'existe pas ou a peut-être été déplacée.",
+    "home": "Retour à l'accueil",
+    "browse": "Parcourir les produits"
   },
   "footer": {
     "tagline": "Soins et cosmétiques de qualité pharmaceutique, formulés avec soin.",

@@ -11,7 +11,9 @@ use App\Models\Page;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Spatie\MediaLibrary\HasMedia;
 
 class CatalogSeeder extends Seeder
 {
@@ -64,6 +66,8 @@ class CatalogSeeder extends Seeder
         // Level 2 (under Makeup)
         $this->makeCategory('face', ['en' => 'Face', 'ar' => 'الوجه', 'fr' => 'Visage'], 'makeup');
         $this->makeCategory('lips', ['en' => 'Lips', 'ar' => 'الشفاه', 'fr' => 'Lèvres'], 'makeup');
+
+        $this->seedCategoryMedia();
     }
 
     protected function makeTag(string $key, TagType $type, array $name): void
@@ -120,6 +124,10 @@ class CatalogSeeder extends Seeder
                     'is_active' => true,
                 ]);
             }
+
+            foreach ($data['images'] ?? [] as $image) {
+                $this->attachMedia($product, 'gallery', $image, $product->getTranslation('name', 'en'));
+            }
         }
     }
 
@@ -137,6 +145,7 @@ class CatalogSeeder extends Seeder
                 'benefits' => ['en' => ['Deep hydration', 'Visibly plumper skin', 'Healthy glow'], 'ar' => ['ترطيب عميق', 'بشرة أكثر امتلاءً', 'إشراقة صحية'], 'fr' => ['Hydratation profonde', 'Peau visiblement repulpée', 'Éclat sain']],
                 'how_to_use' => ['en' => ['Apply 3–4 drops to clean skin', 'Pat gently until absorbed', 'Follow with moisturiser'], 'ar' => ['ضعي 3–4 قطرات على بشرة نظيفة', 'دلّكي بلطف حتى الامتصاص', 'اتبعيها بمرطب'], 'fr' => ['Appliquez 3–4 gouttes sur peau propre', 'Tapotez jusqu’à absorption', 'Faites suivre d’un hydratant']],
                 'variants' => [['name' => '30 ml', 'sku' => 'HG-30', 'price' => 32.00], ['name' => '50 ml', 'sku' => 'HG-50', 'price' => 46.00]],
+                'images' => ['serum.jpg', 'collection.jpg'],
             ],
             [
                 'category' => 'serums', 'price' => 38.00,
@@ -146,9 +155,10 @@ class CatalogSeeder extends Seeder
                 'short' => ['en' => '15% vitamin C for radiant, even tone.', 'ar' => '15% فيتامين سي لبشرة مشرقة وموحدة.', 'fr' => '15% de vitamine C pour un teint éclatant.'],
                 'description' => ['en' => 'A potent antioxidant serum that brightens and evens skin tone over time.', 'ar' => 'سيروم غني بمضادات الأكسدة يفتّح ويوحّد لون البشرة مع الوقت.', 'fr' => 'Un sérum antioxydant qui illumine et unifie le teint.'],
                 'ingredients' => ['en' => 'Aqua, Ascorbic Acid, Ferulic Acid, Vitamin E, Glycerin.', 'ar' => 'ماء، حمض الأسكوربيك، حمض الفيروليك، فيتامين هـ، جليسرين.', 'fr' => 'Aqua, Acide ascorbique, Acide férulique, Vitamine E, Glycérine.'],
-                'benefits' => ['en' => ['Brightens dark spots', 'Evens skin tone', 'Antioxidant защиту'], 'ar' => ['يفتّح البقع الداكنة', 'يوحّد لون البشرة', 'حماية مضادة للأكسدة'], 'fr' => ['Atténue les taches', 'Unifie le teint', 'Protection antioxydante']],
+                'benefits' => ['en' => ['Brightens dark spots', 'Evens skin tone', 'Antioxidant protection'], 'ar' => ['يفتّح البقع الداكنة', 'يوحّد لون البشرة', 'حماية مضادة للأكسدة'], 'fr' => ['Atténue les taches', 'Unifie le teint', 'Protection antioxydante']],
                 'how_to_use' => ['en' => ['Use in the morning', 'Apply before moisturiser', 'Always follow with SPF'], 'ar' => ['استخدميه صباحًا', 'ضعيه قبل المرطب', 'اتبعيه دائمًا بواقٍ شمسي'], 'fr' => ['À utiliser le matin', 'Appliquer avant l’hydratant', 'Toujours faire suivre d’un SPF']],
                 'variants' => [['name' => '30 ml', 'sku' => 'VC-30', 'price' => 38.00]],
+                'images' => ['brightening-spf.jpg', 'hero-campaign.jpg'],
             ],
             [
                 'category' => 'gentle-cleansers', 'price' => 18.00,
@@ -161,6 +171,7 @@ class CatalogSeeder extends Seeder
                 'benefits' => ['en' => ['Gentle on sensitive skin', 'No tight feeling', 'Daily use'], 'ar' => ['لطيف على البشرة الحساسة', 'دون شعور بالشدّ', 'للاستخدام اليومي'], 'fr' => ['Doux pour peaux sensibles', 'Sans tiraillement', 'Usage quotidien']],
                 'how_to_use' => ['en' => ['Massage onto damp skin', 'Rinse with lukewarm water', 'Use morning and night'], 'ar' => ['دلّكيه على بشرة مبللة', 'اشطفيه بماء فاتر', 'استخدميه صباحًا ومساءً'], 'fr' => ['Massez sur peau humide', 'Rincez à l’eau tiède', 'Matin et soir']],
                 'variants' => [['name' => '150 ml', 'sku' => 'GC-150']],
+                'images' => ['cleanser.jpg', 'collection.jpg'],
             ],
             [
                 'category' => 'moisturisers', 'price' => 26.00,
@@ -172,6 +183,7 @@ class CatalogSeeder extends Seeder
                 'benefits' => ['en' => ['24-hour hydration', 'Strengthens barrier', 'Non-greasy'], 'ar' => ['ترطيب 24 ساعة', 'يقوّي الحاجز', 'غير دهني'], 'fr' => ['Hydratation 24h', 'Renforce la barrière', 'Non gras']],
                 'how_to_use' => ['en' => ['Apply to face and neck', 'Use after serum', 'Morning and night'], 'ar' => ['ضعيه على الوجه والرقبة', 'استخدميه بعد السيروم', 'صباحًا ومساءً'], 'fr' => ['Appliquez sur visage et cou', 'Après le sérum', 'Matin et soir']],
                 'variants' => [['name' => '50 ml', 'sku' => 'DM-50']],
+                'images' => ['day-cream.jpg', 'day-cream-alt.jpg'],
             ],
             [
                 'category' => 'suncare', 'price' => 24.00,
@@ -184,6 +196,7 @@ class CatalogSeeder extends Seeder
                 'benefits' => ['en' => ['SPF 50 broad spectrum', 'No white cast', 'Reef-friendly'], 'ar' => ['حماية SPF 50 واسعة الطيف', 'دون أثر أبيض', 'آمن للشعاب المرجانية'], 'fr' => ['SPF 50 large spectre', 'Sans traces blanches', 'Respecte les récifs']],
                 'how_to_use' => ['en' => ['Apply as the last step each morning', 'Reapply every 2 hours outdoors'], 'ar' => ['ضعيه كخطوة أخيرة كل صباح', 'أعيدي تطبيقه كل ساعتين في الخارج'], 'fr' => ['Dernière étape chaque matin', 'Réappliquez toutes les 2 h à l’extérieur']],
                 'variants' => [['name' => '50 ml', 'sku' => 'SS-50']],
+                'images' => ['brightening-spf.jpg', 'hero-campaign.jpg'],
             ],
             [
                 'category' => 'exfoliators', 'price' => 22.00,
@@ -195,6 +208,7 @@ class CatalogSeeder extends Seeder
                 'benefits' => ['en' => ['Smooths texture', 'Refines pores', 'Boosts radiance'], 'ar' => ['ينعّم الملمس', 'يصقل المسام', 'يعزّز الإشراق'], 'fr' => ['Lisse le grain', 'Affine les pores', 'Ravive l’éclat']],
                 'how_to_use' => ['en' => ['Sweep over clean skin at night', 'Start 2–3 times a week', 'Always use SPF next day'], 'ar' => ['مرّريه على بشرة نظيفة ليلًا', 'ابدئي 2–3 مرات أسبوعيًا', 'استخدمي الواقي الشمسي في اليوم التالي'], 'fr' => ['Passez sur peau propre le soir', 'Commencez 2–3 fois/semaine', 'SPF le lendemain']],
                 'variants' => [['name' => '200 ml', 'sku' => 'AHA-200']],
+                'images' => ['night-cream.jpg', 'product-1.jpg'],
             ],
             [
                 'category' => 'lips', 'price' => 16.00,
@@ -207,6 +221,7 @@ class CatalogSeeder extends Seeder
                 'benefits' => ['en' => ['Long wear', 'Comfortable matte', 'Vegan formula'], 'ar' => ['ثبات طويل', 'مطفي مريح', 'تركيبة نباتية'], 'fr' => ['Longue tenue', 'Mat confortable', 'Formule végane']],
                 'how_to_use' => ['en' => ['Line lips then fill', 'Blot for a softer finish'], 'ar' => ['حدّدي الشفاه ثم املئيها', 'اضغطي بمنديل للمسة أنعم'], 'fr' => ['Tracez puis remplissez', 'Tamponnez pour un fini plus doux']],
                 'variants' => [['name' => 'Rosewood', 'sku' => 'VL-RW'], ['name' => 'Terracotta', 'sku' => 'VL-TC'], ['name' => 'Classic Red', 'sku' => 'VL-CR']],
+                'images' => ['beauty-face.jpg', 'hero-shelf.jpg'],
             ],
             [
                 'category' => 'body', 'price' => 20.00,
@@ -218,6 +233,7 @@ class CatalogSeeder extends Seeder
                 'benefits' => ['en' => ['24h softness', 'Fast absorbing', 'Fragrance-free'], 'ar' => ['نعومة 24 ساعة', 'سريع الامتصاص', 'خالٍ من العطور'], 'fr' => ['Douceur 24h', 'Absorption rapide', 'Sans parfum']],
                 'how_to_use' => ['en' => ['Massage over body after showering', 'Use daily'], 'ar' => ['دلّكيه على الجسم بعد الاستحمام', 'استخدميه يوميًا'], 'fr' => ['Massez sur le corps après la douche', 'Usage quotidien']],
                 'variants' => [['name' => '250 ml', 'sku' => 'BL-250']],
+                'images' => ['body-lotion-pump.jpg', 'body-lotion.jpg'],
             ],
         ];
     }
@@ -230,27 +246,32 @@ class CatalogSeeder extends Seeder
                 'subtitle' => ['en' => 'Discover the Dermovive skincare edit.', 'ar' => 'اكتشفي تشكيلة ديرموفيف للعناية بالبشرة.', 'fr' => 'Découvrez la sélection soin Dermovive.'],
                 'cta_label' => ['en' => 'Shop skincare', 'ar' => 'تسوّقي العناية', 'fr' => 'Voir les soins'],
                 'link_type' => LinkType::Category, 'link_target' => 'skincare',
+                'image' => 'hero-campaign.jpg',
             ],
             [
                 'title' => ['en' => 'New: Vitamin C Glow', 'ar' => 'جديد: إشراقة فيتامين سي', 'fr' => 'Nouveau : Éclat Vitamine C'],
                 'subtitle' => ['en' => 'Brighten and even your tone.', 'ar' => 'فتّحي ووحّدي لون بشرتك.', 'fr' => 'Illuminez et unifiez votre teint.'],
                 'cta_label' => ['en' => 'Discover', 'ar' => 'اكتشفي', 'fr' => 'Découvrir'],
                 'link_type' => LinkType::Product, 'link_target' => 'vitamin-c-brightening-serum',
+                'image' => 'hero-shelf.jpg',
             ],
             [
                 'title' => ['en' => 'Sun care, reimagined', 'ar' => 'حماية شمسية بحلّة جديدة', 'fr' => 'La protection solaire réinventée'],
                 'subtitle' => ['en' => 'Invisible SPF 50 for every day.', 'ar' => 'حماية SPF 50 شفافة لكل يوم.', 'fr' => 'SPF 50 invisible au quotidien.'],
                 'cta_label' => ['en' => 'Protect now', 'ar' => 'احمي بشرتك', 'fr' => 'Se protéger'],
                 'link_type' => LinkType::Category, 'link_target' => 'suncare',
+                'image' => 'collection.jpg',
             ],
         ];
 
         foreach ($slides as $i => $slide) {
-            HeroSlide::create([
-                ...$slide,
+            $heroSlide = HeroSlide::create([
+                ...collect($slide)->except('image')->all(),
                 'sort_order' => $i,
                 'is_active' => true,
             ]);
+
+            $this->attachMedia($heroSlide, 'image', $slide['image'], $heroSlide->getTranslation('title', 'en'));
         }
     }
 
@@ -259,9 +280,9 @@ class CatalogSeeder extends Seeder
         Page::create([
             'title' => ['en' => 'Our Story', 'ar' => 'قصتنا', 'fr' => 'Notre histoire'],
             'body' => [
-                'en' => '<p>Dermovive Pharma was founded by pharmacists who believe effective skincare should also feel beautiful. Every formula blends clinical research with sensorial care.</p>',
-                'ar' => '<p>تأسست ديرموفيف فارما على يد صيادلة يؤمنون بأن العناية الفعّالة بالبشرة يجب أن تكون جميلة أيضًا. كل تركيبة تمزج بين الأبحاث السريرية والعناية الحسّية.</p>',
-                'fr' => '<p>Dermovive Pharma a été fondée par des pharmaciens convaincus qu’un soin efficace doit aussi être beau. Chaque formule allie recherche clinique et plaisir sensoriel.</p>',
+                'en' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="Dermovive products arranged in a skincare shelf" /></figure><p>Dermovive Pharma was founded by pharmacists who believe effective skincare should also feel beautiful. Every formula blends clinical research with sensorial care.</p><h2>Formulas with a visible purpose</h2><p>From daily SPF to night creams and body care, each product is developed around real routines, gentle textures, and skin-first performance.</p>',
+                'ar' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="منتجات ديرموفيف مرتبة على رف للعناية بالبشرة" /></figure><p>تأسست ديرموفيف فارما على يد صيادلة يؤمنون بأن العناية الفعّالة بالبشرة يجب أن تكون جميلة أيضًا. كل تركيبة تمزج بين الأبحاث السريرية والعناية الحسّية.</p><h2>تركيبات بهدف واضح</h2><p>من الواقي الشمسي اليومي إلى كريمات الليل والعناية بالجسم، كل منتج مصمم حول روتين حقيقي وملمس لطيف وأداء يضع البشرة أولًا.</p>',
+                'fr' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="Produits Dermovive disposés sur une étagère de soin" /></figure><p>Dermovive Pharma a été fondée par des pharmaciens convaincus qu’un soin efficace doit aussi être beau. Chaque formule allie recherche clinique et plaisir sensoriel.</p><h2>Des formules à la mission visible</h2><p>Du SPF quotidien aux crèmes de nuit et soins du corps, chaque produit est pensé pour les vrais rituels, les textures douces et la performance cutanée.</p>',
             ],
             'is_published' => true,
         ]);
@@ -269,9 +290,9 @@ class CatalogSeeder extends Seeder
         Page::create([
             'title' => ['en' => 'Contact', 'ar' => 'تواصلي معنا', 'fr' => 'Contact'],
             'body' => [
-                'en' => '<p>Questions about our products? Our team is here to help.</p>',
-                'ar' => '<p>هل لديك أسئلة حول منتجاتنا؟ فريقنا هنا لمساعدتك.</p>',
-                'fr' => '<p>Des questions sur nos produits ? Notre équipe est là pour vous aider.</p>',
+                'en' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Dermovive skincare product collection" /></figure><p>Questions about our products? Our team is here to help you choose the right Dermovive routine for your skin.</p>',
+                'ar' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="مجموعة منتجات ديرموفيف للعناية بالبشرة" /></figure><p>هل لديك أسئلة حول منتجاتنا؟ فريقنا هنا لمساعدتك على اختيار روتين ديرموفيف المناسب لبشرتك.</p>',
+                'fr' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Collection de produits de soin Dermovive" /></figure><p>Des questions sur nos produits ? Notre équipe vous aide à choisir le rituel Dermovive adapté à votre peau.</p>',
             ],
             'is_published' => true,
         ]);
@@ -284,5 +305,52 @@ class CatalogSeeder extends Seeder
         Setting::set('contact_email', 'hello@dermovive.test');
         Setting::set('contact_phone', '+962 7 0000 0000');
         Setting::set('address', 'Amman, Jordan');
+    }
+
+    protected function seedCategoryMedia(): void
+    {
+        $images = [
+            'skincare' => 'collection.jpg',
+            'makeup' => 'beauty-face.jpg',
+            'body' => 'body-lotion-pump.jpg',
+            'cleansers' => 'cleanser.jpg',
+            'serums' => 'serum.jpg',
+            'moisturisers' => 'day-cream.jpg',
+            'suncare' => 'brightening-spf.jpg',
+            'gentle-cleansers' => 'cleanser.jpg',
+            'exfoliators' => 'night-cream.jpg',
+            'face' => 'hero-shelf.jpg',
+            'lips' => 'lipstick.jpg',
+        ];
+
+        foreach ($images as $key => $image) {
+            if (isset($this->cat[$key])) {
+                $this->attachMedia($this->cat[$key], 'image', $image, $this->cat[$key]->getTranslation('name', 'en'));
+            }
+        }
+    }
+
+    protected function attachMedia(Model&HasMedia $model, string $collection, string $filename, ?string $name = null): void
+    {
+        $path = $this->assetPath($filename);
+
+        if (! $path) {
+            $this->command?->warn("Seed media missing: {$filename}");
+
+            return;
+        }
+
+        $model
+            ->addMedia($path)
+            ->preservingOriginal()
+            ->usingName($name ?? pathinfo($filename, PATHINFO_FILENAME))
+            ->toMediaCollection($collection);
+    }
+
+    protected function assetPath(string $filename): ?string
+    {
+        $path = database_path('seeders/media/'.$filename);
+
+        return is_file($path) ? $path : null;
     }
 }

@@ -8,18 +8,48 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { isRtl } from "@/i18n/routing";
 import { MediaImage } from "@/components/ui/MediaImage";
+import { HeroDecor } from "@/components/home/HeroDecor";
 import { buttonClasses } from "@/components/ui/Button";
 import { resolveHeroLink } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { HeroSlide } from "@/lib/types";
 
 const AUTOPLAY_MS = 6000;
+const LOCAL_HERO_IMAGES = [
+  {
+    src: "/brand/hero-dermo-white.jpg",
+    className: "object-[62%_center]",
+  },
+  {
+    src: "/brand/hero-dermo-shelf.jpg",
+    className: "object-[58%_center]",
+  },
+  {
+    src: "/brand/collection-dermo-white.jpg",
+    className: "object-center",
+  },
+] as const;
 
 export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   if (slides.length === 0) {
     return <HeroFallback />;
   }
-  return <Slider slides={slides} />;
+  return <Slider slides={ensureHeroFrames(slides)} />;
+}
+
+function ensureHeroFrames(slides: HeroSlide[]): HeroSlide[] {
+  if (slides.length >= LOCAL_HERO_IMAGES.length) return slides;
+
+  return LOCAL_HERO_IMAGES.map((_, index) => {
+    const slide = slides[index % slides.length];
+    return index < slides.length
+      ? slide
+      : {
+          ...slide,
+          id: -(index + 1),
+          image: null,
+        };
+  });
 }
 
 function Slider({ slides }: { slides: HeroSlide[] }) {
@@ -79,6 +109,7 @@ function Slider({ slides }: { slides: HeroSlide[] }) {
             <HeroSlideView
               key={slide.id}
               slide={slide}
+              image={LOCAL_HERO_IMAGES[index % LOCAL_HERO_IMAGES.length]}
               active={index === selected}
               priority={index === 0}
               eyebrow={t("hero.eyebrow")}
@@ -133,6 +164,7 @@ function Slider({ slides }: { slides: HeroSlide[] }) {
 
 function HeroSlideView({
   slide,
+  image,
   active,
   priority,
   eyebrow,
@@ -140,6 +172,7 @@ function HeroSlideView({
   reduceMotion,
 }: {
   slide: HeroSlide;
+  image: (typeof LOCAL_HERO_IMAGES)[number];
   active: boolean;
   priority: boolean;
   eyebrow: string;
@@ -149,26 +182,21 @@ function HeroSlideView({
   const link = resolveHeroLink(slide.link);
   const ctaLabel = slide.cta_label ?? fallbackCta;
   const shown = active ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
+  const imageSrc = slide.image?.preview ?? slide.image?.original ?? image.src;
 
   return (
     <div className="relative min-w-0 flex-[0_0_100%]">
-      <div className="relative aspect-[16/11] w-full overflow-hidden sm:aspect-[2/1] lg:aspect-[21/8]">
-        {slide.image ? (
-          <>
-            <MediaImage
-              src={slide.image.preview ?? slide.image.original}
-              alt={slide.title}
-              priority={priority}
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-teal-950/80 via-teal-900/35 to-teal-900/25" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-teal-700 via-teal-800 to-teal-950">
-            <div className="pointer-events-none absolute -top-24 end-10 h-80 w-80 rounded-full bg-coral-400/20 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-32 start-0 h-96 w-96 rounded-full bg-teal-300/10 blur-3xl" />
-          </div>
-        )}
+      <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-auto sm:min-h-[560px] lg:min-h-[680px]">
+        <MediaImage
+          src={imageSrc}
+          alt={slide.title}
+          priority={priority}
+          sizes="100vw"
+          className={image.className}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-teal-950/85 via-teal-950/35 to-teal-900/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-950/85 via-teal-950/45 to-transparent rtl:bg-gradient-to-l" />
+        <HeroDecor mode="overlay" />
 
         <div className="absolute inset-0 flex items-center">
           <div className="container-page">
@@ -178,8 +206,11 @@ function HeroSlideView({
               animate={reduceMotion ? { opacity: 1, y: 0 } : shown}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="eyebrow text-coral-300">{eyebrow}</span>
-              <h1 className="mt-4 text-4xl leading-[1.07] text-cream sm:text-5xl lg:text-6xl">
+              <span className="inline-flex items-center gap-2.5 rounded-pill bg-white/10 px-4 py-1.5 ring-1 ring-white/20 backdrop-blur">
+                <span className="h-1.5 w-1.5 rounded-full bg-coral-400" />
+                <span className="eyebrow text-coral-200">{eyebrow}</span>
+              </span>
+              <h1 className="mt-5 text-4xl leading-[1.05] text-cream sm:text-5xl lg:text-[4.25rem]">
                 {slide.title}
               </h1>
               {slide.subtitle && (
@@ -187,7 +218,7 @@ function HeroSlideView({
                   {slide.subtitle}
                 </p>
               )}
-              <div className="mt-8">
+              <div className="mt-9 flex flex-wrap items-center gap-4">
                 {link.external ? (
                   <a href={link.href} className={buttonClasses({ size: "lg" })}>
                     {ctaLabel}
@@ -211,33 +242,14 @@ function HeroSlideView({
 /** Shown when the API returns no slides (e.g. backend unreachable). */
 function HeroFallback() {
   const t = useTranslations("home.hero");
-  const tc = useTranslations("common");
+  const fallbackSlides: HeroSlide[] = LOCAL_HERO_IMAGES.map((_, index) => ({
+    id: -(index + 1),
+    title: t("title"),
+    subtitle: t("subtitle"),
+    cta_label: t("cta"),
+    link: { type: null, target: null },
+    image: null,
+  }));
 
-  return (
-    <section className="relative overflow-hidden">
-      <div className="relative aspect-[16/11] w-full overflow-hidden bg-gradient-to-br from-teal-700 via-teal-800 to-teal-950 sm:aspect-[2/1] lg:aspect-[21/8]">
-        <div className="pointer-events-none absolute -top-24 end-10 h-80 w-80 rounded-full bg-coral-400/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 start-0 h-96 w-96 rounded-full bg-teal-300/10 blur-3xl" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="container-page">
-            <div className="max-w-xl">
-              <span className="eyebrow text-coral-300">{t("eyebrow")}</span>
-              <h1 className="mt-4 text-4xl leading-[1.07] text-cream sm:text-5xl lg:text-6xl">
-                {t("title")}
-              </h1>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-teal-50/85 sm:text-lg">
-                {t("subtitle")}
-              </p>
-              <div className="mt-8">
-                <Link href="/" className={buttonClasses({ size: "lg" })}>
-                  {tc("explore")}
-                  <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <Slider slides={fallbackSlides} />;
 }

@@ -20,6 +20,8 @@ export function CmsContent({
         "[&_h2]:mb-3 [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:text-teal-800",
         "[&_h3]:mb-2 [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:text-teal-800",
         "[&_ul]:my-4 [&_ul]:list-disc [&_ul]:ps-6 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:ps-6 [&_li]:mb-1.5",
+        "[&_figure]:my-8 [&_figure]:overflow-hidden [&_figure]:rounded-card [&_figure]:bg-sand",
+        "[&_img]:aspect-[16/9] [&_img]:h-auto [&_img]:w-full [&_img]:object-cover",
         "[&_a]:text-coral-600 [&_a]:underline hover:[&_a]:text-coral-700",
         "[&_strong]:font-semibold [&_strong]:text-teal-800",
         className,
