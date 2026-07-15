@@ -6,7 +6,7 @@ import { buttonClasses } from "@/components/ui/Button";
 import { ProductFilters, type CategoryOption } from "@/components/catalog/ProductFilters";
 import { ProductGrid } from "@/components/catalog/ProductGrid";
 import { Pagination } from "@/components/catalog/Pagination";
-import { getCategoryTree, getProducts, getTags } from "@/lib/queries";
+import { getCategoryTree, getProducts } from "@/lib/queries";
 import { alternatesFor } from "@/lib/seo";
 import type { Category, ProductQuery } from "@/lib/types";
 
@@ -64,10 +64,9 @@ export default async function ProductsPage({
 
   const t = await getTranslations("catalog");
 
-  const [list, tree, tagGroups] = await Promise.all([
+  const [list, tree] = await Promise.all([
     getProducts(query, locale),
     getCategoryTree(locale),
-    getTags(locale),
   ]);
 
   const categories = flattenTree(tree);
@@ -83,7 +82,7 @@ export default async function ProductsPage({
       </header>
 
       <div className="mt-9">
-        <ProductFilters categories={categories} tagGroups={tagGroups} />
+        <ProductFilters categories={categories} />
       </div>
 
       <p className="mt-8 text-sm text-muted">

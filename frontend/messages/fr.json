@@ -48,6 +48,19 @@
       "clean": "Propre & sans cruauté",
       "loved": "Conçu pour être aimé"
     },
+    "who": {
+      "eyebrow": "Qui est Dermovive",
+      "title": "Un laboratoire de soins, fondé sur la science",
+      "body": "Dermovive Pharma est un laboratoire cosmétique spécialisé dans le développement et la fabrication de produits de soin. Nous proposons des solutions innovantes alliant efficacité, sécurité et ingrédients de qualité premium — adaptées aux besoins des marchés africains et internationaux.",
+      "vision": {
+        "label": "Notre Vision",
+        "body": "Renforcer la confiance en soi grâce à des produits sûrs et efficaces, formulés avec des ingrédients naturels qui améliorent la santé de la peau et révèlent la beauté naturelle — en nous développant dans toute l'Afrique de l'Ouest d'ici 2030 comme un leader de confiance."
+      },
+      "mission": {
+        "label": "Notre Mission",
+        "body": "Devenir le choix préféré des femmes du monde entier en offrant des soins innovants, durables et abordables — des produits de haute qualité à des prix accessibles à tous, tout en célébrant la diversité et la beauté naturelle."
+      }
+    },
     "slider": {
       "prev": "Diapositive précédente",
       "next": "Diapositive suivante",

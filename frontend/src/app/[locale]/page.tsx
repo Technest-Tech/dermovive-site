@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { FlaskConical, Leaf, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
+import { FlaskConical, Leaf, ShieldCheck, Sparkles, ArrowRight, Eye, Target } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buttonClasses } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -47,6 +47,8 @@ export default async function HomePage({
       <HeroSlider slides={home?.hero ?? []} />
 
       <TrustBar />
+
+      <WhoWeAre />
 
       {home && home.featured.length > 0 && (
         <div id="collection" className="scroll-mt-24">
@@ -97,6 +99,46 @@ function TrustBar() {
             <span className="text-sm font-medium text-teal-800">{t(key)}</span>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function WhoWeAre() {
+  const t = useTranslations("home.who");
+  const pillars = [
+    { icon: Eye, key: "vision" },
+    { icon: Target, key: "mission" },
+  ] as const;
+
+  return (
+    <section id="about" className="scroll-mt-24 bg-sand/40 py-16 sm:py-20">
+      <div className="container-page grid gap-12 lg:grid-cols-2 lg:items-start">
+        <FadeIn>
+          <span className="eyebrow">{t("eyebrow")}</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl">{t("title")}</h2>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+            {t("body")}
+          </p>
+        </FadeIn>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+          {pillars.map(({ icon: Icon, key }, index) => (
+            <FadeIn key={key} delay={0.1 + index * 0.1}>
+              <div className="h-full rounded-card border border-teal-700/10 bg-white/70 p-7">
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-coral-100 text-coral-600">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 text-xl text-teal-800">
+                  {t(`${key}.label`)}
+                </h3>
+                <p className="mt-2 leading-relaxed text-muted">
+                  {t(`${key}.body`)}
+                </p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </section>
   );

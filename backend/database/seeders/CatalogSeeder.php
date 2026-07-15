@@ -48,24 +48,16 @@ class CatalogSeeder extends Seeder
 
     protected function seedCategories(): void
     {
-        // Level 1
-        $this->makeCategory('skincare', ['en' => 'Skincare', 'ar' => 'العناية بالبشرة', 'fr' => 'Soins de la peau']);
-        $this->makeCategory('makeup', ['en' => 'Makeup', 'ar' => 'المكياج', 'fr' => 'Maquillage']);
-        $this->makeCategory('body', ['en' => 'Body', 'ar' => 'العناية بالجسم', 'fr' => 'Corps']);
+        // Level 1 — the three product families shown in "Shop by Categories"
+        $this->makeCategory('cosmetics', ['en' => 'Cosmetics & Skincare', 'ar' => 'مستحضرات التجميل والعناية بالبشرة', 'fr' => 'Cosmétiques et soins de la peau']);
+        $this->makeCategory('supplements', ['en' => 'Food Supplements', 'ar' => 'المكمّلات الغذائية', 'fr' => 'Compléments alimentaires']);
+        $this->makeCategory('devices', ['en' => 'Medical Devices', 'ar' => 'الأجهزة الطبية', 'fr' => 'Dispositifs médicaux']);
 
-        // Level 2 (under Skincare)
-        $this->makeCategory('cleansers', ['en' => 'Cleansers', 'ar' => 'المنظفات', 'fr' => 'Nettoyants'], 'skincare');
-        $this->makeCategory('serums', ['en' => 'Serums', 'ar' => 'السيرومات', 'fr' => 'Sérums'], 'skincare');
-        $this->makeCategory('moisturisers', ['en' => 'Moisturisers', 'ar' => 'المرطبات', 'fr' => 'Hydratants'], 'skincare');
-        $this->makeCategory('suncare', ['en' => 'Sun Care', 'ar' => 'الحماية من الشمس', 'fr' => 'Protection solaire'], 'skincare');
-
-        // Level 3 (under Cleansers)
-        $this->makeCategory('gentle-cleansers', ['en' => 'Gentle Cleansers', 'ar' => 'منظفات لطيفة', 'fr' => 'Nettoyants doux'], 'cleansers');
-        $this->makeCategory('exfoliators', ['en' => 'Exfoliators', 'ar' => 'المقشرات', 'fr' => 'Exfoliants'], 'cleansers');
-
-        // Level 2 (under Makeup)
-        $this->makeCategory('face', ['en' => 'Face', 'ar' => 'الوجه', 'fr' => 'Visage'], 'makeup');
-        $this->makeCategory('lips', ['en' => 'Lips', 'ar' => 'الشفاه', 'fr' => 'Lèvres'], 'makeup');
+        // Level 2 (under Cosmetics & Skincare)
+        $this->makeCategory('cleansers', ['en' => 'Cleansers', 'ar' => 'المنظّفات', 'fr' => 'Nettoyants'], 'cosmetics');
+        $this->makeCategory('facecare', ['en' => 'Face Care', 'ar' => 'العناية بالوجه', 'fr' => 'Soins du visage'], 'cosmetics');
+        $this->makeCategory('suncare', ['en' => 'Sun Care', 'ar' => 'الحماية من الشمس', 'fr' => 'Protection solaire'], 'cosmetics');
+        $this->makeCategory('bodycare', ['en' => 'Body Care', 'ar' => 'العناية بالجسم', 'fr' => 'Soins du corps'], 'cosmetics');
 
         $this->seedCategoryMedia();
     }
@@ -135,105 +127,93 @@ class CatalogSeeder extends Seeder
     {
         return [
             [
-                'category' => 'serums', 'price' => 32.00, 'compare_at' => 40.00,
-                'featured' => true, 'badges' => [ProductBadge::Bestseller->value],
-                'tags' => ['dry', 'hydration', 'vegan', 'derm-tested'],
-                'name' => ['en' => 'Hydra-Glow Serum', 'ar' => 'سيروم هيدرا غلو', 'fr' => 'Sérum Hydra-Glow'],
-                'short' => ['en' => 'Plumping hydration with niacinamide + B5.', 'ar' => 'ترطيب ممتلئ مع النياسيناميد وفيتامين B5.', 'fr' => 'Hydratation repulpante au niacinamide + B5.'],
-                'description' => ['en' => 'A lightweight serum that floods skin with moisture and a healthy glow.', 'ar' => 'سيروم خفيف يغمر البشرة بالترطيب وإشراقة صحية.', 'fr' => 'Un sérum léger qui inonde la peau d’hydratation et d’éclat.'],
-                'ingredients' => ['en' => 'Aqua, Niacinamide, Panthenol, Sodium Hyaluronate, Glycerin.', 'ar' => 'ماء، نياسيناميد، بانثينول، هيالورونات الصوديوم، جليسرين.', 'fr' => 'Aqua, Niacinamide, Panthénol, Hyaluronate de sodium, Glycérine.'],
-                'benefits' => ['en' => ['Deep hydration', 'Visibly plumper skin', 'Healthy glow'], 'ar' => ['ترطيب عميق', 'بشرة أكثر امتلاءً', 'إشراقة صحية'], 'fr' => ['Hydratation profonde', 'Peau visiblement repulpée', 'Éclat sain']],
-                'how_to_use' => ['en' => ['Apply 3–4 drops to clean skin', 'Pat gently until absorbed', 'Follow with moisturiser'], 'ar' => ['ضعي 3–4 قطرات على بشرة نظيفة', 'دلّكي بلطف حتى الامتصاص', 'اتبعيها بمرطب'], 'fr' => ['Appliquez 3–4 gouttes sur peau propre', 'Tapotez jusqu’à absorption', 'Faites suivre d’un hydratant']],
-                'variants' => [['name' => '30 ml', 'sku' => 'HG-30', 'price' => 32.00], ['name' => '50 ml', 'sku' => 'HG-50', 'price' => 46.00]],
-                'images' => ['serum.jpg', 'collection.jpg'],
-            ],
-            [
-                'category' => 'serums', 'price' => 38.00,
-                'featured' => true, 'badges' => [ProductBadge::Bestseller->value],
-                'tags' => ['combination', 'brightening', 'vegan'],
-                'name' => ['en' => 'Vitamin C Brightening Serum', 'ar' => 'سيروم فيتامين سي المفتّح', 'fr' => 'Sérum Éclat Vitamine C'],
-                'short' => ['en' => '15% vitamin C for radiant, even tone.', 'ar' => '15% فيتامين سي لبشرة مشرقة وموحدة.', 'fr' => '15% de vitamine C pour un teint éclatant.'],
-                'description' => ['en' => 'A potent antioxidant serum that brightens and evens skin tone over time.', 'ar' => 'سيروم غني بمضادات الأكسدة يفتّح ويوحّد لون البشرة مع الوقت.', 'fr' => 'Un sérum antioxydant qui illumine et unifie le teint.'],
-                'ingredients' => ['en' => 'Aqua, Ascorbic Acid, Ferulic Acid, Vitamin E, Glycerin.', 'ar' => 'ماء، حمض الأسكوربيك، حمض الفيروليك، فيتامين هـ، جليسرين.', 'fr' => 'Aqua, Acide ascorbique, Acide férulique, Vitamine E, Glycérine.'],
-                'benefits' => ['en' => ['Brightens dark spots', 'Evens skin tone', 'Antioxidant protection'], 'ar' => ['يفتّح البقع الداكنة', 'يوحّد لون البشرة', 'حماية مضادة للأكسدة'], 'fr' => ['Atténue les taches', 'Unifie le teint', 'Protection antioxydante']],
-                'how_to_use' => ['en' => ['Use in the morning', 'Apply before moisturiser', 'Always follow with SPF'], 'ar' => ['استخدميه صباحًا', 'ضعيه قبل المرطب', 'اتبعيه دائمًا بواقٍ شمسي'], 'fr' => ['À utiliser le matin', 'Appliquer avant l’hydratant', 'Toujours faire suivre d’un SPF']],
-                'variants' => [['name' => '30 ml', 'sku' => 'VC-30', 'price' => 38.00]],
-                'images' => ['brightening-spf.jpg', 'hero-campaign.jpg'],
-            ],
-            [
-                'category' => 'gentle-cleansers', 'price' => 18.00,
+                'category' => 'cleansers', 'price' => 15.00,
                 'badges' => [ProductBadge::NewArrival->value],
-                'tags' => ['sensitive', 'fragrance-free', 'derm-tested'],
-                'name' => ['en' => 'Gentle Foaming Cleanser', 'ar' => 'غسول رغوي لطيف', 'fr' => 'Nettoyant Moussant Doux'],
-                'short' => ['en' => 'Soft foam that cleanses without stripping.', 'ar' => 'رغوة ناعمة تنظّف دون أن تجفّف.', 'fr' => 'Mousse douce qui nettoie sans dessécher.'],
-                'description' => ['en' => 'A pH-balanced cleanser for sensitive skin, leaving it soft and comfortable.', 'ar' => 'غسول متوازن الحموضة للبشرة الحساسة يتركها ناعمة ومريحة.', 'fr' => 'Un nettoyant au pH équilibré pour peaux sensibles.'],
-                'ingredients' => ['en' => 'Aqua, Coco-Glucoside, Glycerin, Panthenol, Allantoin.', 'ar' => 'ماء، كوكو-جلوكوسيد، جليسرين، بانثينول، ألانتوين.', 'fr' => 'Aqua, Coco-Glucoside, Glycérine, Panthénol, Allantoïne.'],
-                'benefits' => ['en' => ['Gentle on sensitive skin', 'No tight feeling', 'Daily use'], 'ar' => ['لطيف على البشرة الحساسة', 'دون شعور بالشدّ', 'للاستخدام اليومي'], 'fr' => ['Doux pour peaux sensibles', 'Sans tiraillement', 'Usage quotidien']],
-                'how_to_use' => ['en' => ['Massage onto damp skin', 'Rinse with lukewarm water', 'Use morning and night'], 'ar' => ['دلّكيه على بشرة مبللة', 'اشطفيه بماء فاتر', 'استخدميه صباحًا ومساءً'], 'fr' => ['Massez sur peau humide', 'Rincez à l’eau tiède', 'Matin et soir']],
-                'variants' => [['name' => '150 ml', 'sku' => 'GC-150']],
+                'tags' => ['oily', 'acne', 'derm-tested'],
+                'name' => ['en' => 'Dermo Glow Facial Cleanser', 'ar' => 'ديرمو غلو غسول الوجه', 'fr' => 'Dermo Glow Nettoyant Visage'],
+                'short' => ['en' => 'Exfoliating AHA/BHA foaming face wash.', 'ar' => 'غسول رغوي مقشّر بأحماض AHA وBHA.', 'fr' => 'Nettoyant moussant exfoliant AHA/BHA.'],
+                'description' => ['en' => 'A foaming cleanser with glycolic and salicylic acids that exfoliates dead cells, deeply unclogs pores and purifies the skin for a clearer, brighter and more balanced complexion.', 'ar' => 'غسول رغوي بحمضي الجلايكوليك والساليسيليك يقشّر الخلايا الميتة وينظّف المسام بعمق وينقّي البشرة لإطلالة أكثر صفاءً وإشراقًا وتوازنًا.', 'fr' => 'Un nettoyant moussant à l’acide glycolique et salicylique qui exfolie les cellules mortes, désincruste les pores en profondeur et purifie la peau pour un teint plus net, éclatant et équilibré.'],
+                'ingredients' => ['en' => 'Glycolic Acid (AHA), Salicylic Acid (BHA), Aloe Vera, Allantoin, Tea Tree Oil.', 'ar' => 'حمض الجلايكوليك (AHA)، حمض الساليسيليك (BHA)، الصبار، الألانتوين، زيت شجرة الشاي.', 'fr' => 'Acide glycolique (AHA), Acide salicylique (BHA), Aloe vera, Allantoïne, Huile d’arbre à thé.'],
+                'benefits' => ['en' => ['Exfoliates dead skin cells', 'Reduces blemishes and acne marks', 'Purifies and calms inflammation', 'Regulates excess sebum'], 'ar' => ['يقشّر خلايا الجلد الميتة', 'يقلّل الشوائب وآثار حب الشباب', 'ينقّي البشرة ويهدّئ الالتهاب', 'ينظّم إفراز الدهون الزائدة'], 'fr' => ['Exfolie les cellules mortes', 'Réduit les imperfections et cicatrices d’acné', 'Purifie la peau et réduit l’inflammation', 'Régule l’excès de sébum']],
+                'how_to_use' => ['en' => ['Apply to wet skin', 'Lather in circular motions for one minute', 'Rinse thoroughly with water'], 'ar' => ['ضعيه على بشرة مبللة', 'دلّكيه بحركات دائرية لمدة دقيقة', 'اشطفيه جيدًا بالماء'], 'fr' => ['Appliquer sur peau mouillée', 'Faire mousser par mouvements circulaires une minute', 'Rincer abondamment']],
+                'variants' => [['name' => '150 ml', 'sku' => 'DG-CL-150']],
                 'images' => ['cleanser.jpg', 'collection.jpg'],
             ],
             [
-                'category' => 'moisturisers', 'price' => 26.00,
-                'tags' => ['dry', 'hydration', 'derm-tested'],
-                'name' => ['en' => 'Daily Moisture Cream', 'ar' => 'كريم الترطيب اليومي', 'fr' => 'Crème Hydratante Quotidienne'],
-                'short' => ['en' => '24h moisture with ceramides.', 'ar' => 'ترطيب 24 ساعة مع السيراميد.', 'fr' => 'Hydratation 24h aux céramides.'],
-                'description' => ['en' => 'A rich-yet-fast-absorbing cream that strengthens the skin barrier.', 'ar' => 'كريم غني سريع الامتصاص يقوّي حاجز البشرة.', 'fr' => 'Une crème riche à absorption rapide qui renforce la barrière cutanée.'],
-                'ingredients' => ['en' => 'Aqua, Ceramide NP, Shea Butter, Squalane, Glycerin.', 'ar' => 'ماء، سيراميد NP، زبدة الشيا، سكوالان، جليسرين.', 'fr' => 'Aqua, Céramide NP, Beurre de karité, Squalane, Glycérine.'],
-                'benefits' => ['en' => ['24-hour hydration', 'Strengthens barrier', 'Non-greasy'], 'ar' => ['ترطيب 24 ساعة', 'يقوّي الحاجز', 'غير دهني'], 'fr' => ['Hydratation 24h', 'Renforce la barrière', 'Non gras']],
-                'how_to_use' => ['en' => ['Apply to face and neck', 'Use after serum', 'Morning and night'], 'ar' => ['ضعيه على الوجه والرقبة', 'استخدميه بعد السيروم', 'صباحًا ومساءً'], 'fr' => ['Appliquez sur visage et cou', 'Après le sérum', 'Matin et soir']],
-                'variants' => [['name' => '50 ml', 'sku' => 'DM-50']],
+                'category' => 'facecare', 'price' => 28.00,
+                'featured' => true, 'badges' => [ProductBadge::Bestseller->value],
+                'tags' => ['brightening', 'hydration', 'derm-tested'],
+                'name' => ['en' => 'Clarifying Day Cream', 'ar' => 'كريم التفتيح النهاري', 'fr' => 'Crème Clarifiante Jour'],
+                'short' => ['en' => 'Brightening day moisturiser for an even tone.', 'ar' => 'مرطّب نهاري مفتّح لتوحيد لون البشرة.', 'fr' => 'Soin de jour clarifiant pour un teint unifié.'],
+                'description' => ['en' => 'A daytime clarifying cream with niacinamide, hyaluronic acid, alpha arbutin and kojic acid that reduces dark spots, evens tone and delivers lasting hydration.', 'ar' => 'كريم نهاري مفتّح يحتوي على النياسيناميد وحمض الهيالورونيك وألفا أربوتين وحمض الكوجيك، يقلّل البقع الداكنة ويوحّد اللون ويمنح ترطيبًا يدوم طويلًا.', 'fr' => 'Une crème de jour clarifiante au niacinamide, acide hyaluronique, alpha arbutine et acide kojique qui atténue les taches, unifie le teint et apporte une hydratation durable.'],
+                'ingredients' => ['en' => 'Niacinamide (Vitamin B3), Hyaluronic Acid, Alpha Arbutin, Kojic Acid.', 'ar' => 'نياسيناميد (فيتامين B3)، حمض الهيالورونيك، ألفا أربوتين، حمض الكوجيك.', 'fr' => 'Niacinamide (Vitamine B3), Acide hyaluronique, Alpha arbutine, Acide kojique.'],
+                'benefits' => ['en' => ['Reduces pigmentation spots', 'Evens skin tone', 'Intense, long-lasting hydration', 'Fades hyperpigmentation and post-blemish marks'], 'ar' => ['يقلّل البقع التصبغية', 'يوحّد لون البشرة', 'ترطيب مكثّف يدوم طويلًا', 'يخفّف التصبّغ وآثار ما بعد الحبوب'], 'fr' => ['Réduit les taches pigmentaires', 'Unifie la couleur de la peau', 'Hydratation intense et durable', 'Atténue l’hyperpigmentation et les taches post-inflammatoires']],
+                'how_to_use' => ['en' => ['Apply in the morning', 'Massage into the face in circular motions until absorbed'], 'ar' => ['يُطبّق صباحًا', 'دلّكيه على الوجه بحركات دائرية حتى الامتصاص'], 'fr' => ['Appliquer le matin', 'Masser le visage par mouvements circulaires pour faciliter la pénétration']],
+                'variants' => [['name' => '50 ml', 'sku' => 'DV-CJ-50']],
                 'images' => ['day-cream.jpg', 'day-cream-alt.jpg'],
             ],
             [
-                'category' => 'suncare', 'price' => 24.00,
-                'featured' => true, 'badges' => [ProductBadge::Bestseller->value, ProductBadge::NewArrival->value],
-                'tags' => ['sensitive', 'fragrance-free', 'derm-tested'],
-                'name' => ['en' => 'Mineral Sunscreen SPF 50', 'ar' => 'واقٍ شمسي معدني SPF 50', 'fr' => 'Écran Minéral SPF 50'],
-                'short' => ['en' => 'Invisible mineral protection, no white cast.', 'ar' => 'حماية معدنية شفافة دون أثر أبيض.', 'fr' => 'Protection minérale invisible, sans traces blanches.'],
-                'description' => ['en' => 'Broad-spectrum SPF 50 with a weightless, skin-tone-adapting finish.', 'ar' => 'حماية واسعة الطيف SPF 50 بلمسة خفيفة تتكيف مع لون البشرة.', 'fr' => 'SPF 50 large spectre à la finition légère adaptée au teint.'],
-                'ingredients' => ['en' => 'Zinc Oxide, Aqua, Glycerin, Niacinamide, Tocopherol.', 'ar' => 'أكسيد الزنك، ماء، جليسرين، نياسيناميد، توكوفيرول.', 'fr' => 'Oxyde de zinc, Aqua, Glycérine, Niacinamide, Tocophérol.'],
-                'benefits' => ['en' => ['SPF 50 broad spectrum', 'No white cast', 'Reef-friendly'], 'ar' => ['حماية SPF 50 واسعة الطيف', 'دون أثر أبيض', 'آمن للشعاب المرجانية'], 'fr' => ['SPF 50 large spectre', 'Sans traces blanches', 'Respecte les récifs']],
-                'how_to_use' => ['en' => ['Apply as the last step each morning', 'Reapply every 2 hours outdoors'], 'ar' => ['ضعيه كخطوة أخيرة كل صباح', 'أعيدي تطبيقه كل ساعتين في الخارج'], 'fr' => ['Dernière étape chaque matin', 'Réappliquez toutes les 2 h à l’extérieur']],
-                'variants' => [['name' => '50 ml', 'sku' => 'SS-50']],
-                'images' => ['brightening-spf.jpg', 'hero-campaign.jpg'],
-            ],
-            [
-                'category' => 'exfoliators', 'price' => 22.00,
-                'tags' => ['oily', 'acne', 'vegan'],
-                'name' => ['en' => 'AHA Exfoliating Tonic', 'ar' => 'تونر التقشير بحمض AHA', 'fr' => 'Tonique Exfoliant AHA'],
-                'short' => ['en' => 'Smooths texture and refines pores.', 'ar' => 'ينعّم الملمس ويصقل المسام.', 'fr' => 'Lisse le grain et affine les pores.'],
-                'description' => ['en' => 'A gentle glycolic tonic that resurfaces for smoother, brighter skin.', 'ar' => 'تونر جلايكوليك لطيف يجدّد البشرة لملمس أنعم وأكثر إشراقًا.', 'fr' => 'Un tonique glycolique doux pour une peau plus lisse et lumineuse.'],
-                'ingredients' => ['en' => 'Aqua, Glycolic Acid, Aloe Vera, Panthenol.', 'ar' => 'ماء، حمض الجلايكوليك، صبار، بانثينول.', 'fr' => 'Aqua, Acide glycolique, Aloe vera, Panthénol.'],
-                'benefits' => ['en' => ['Smooths texture', 'Refines pores', 'Boosts radiance'], 'ar' => ['ينعّم الملمس', 'يصقل المسام', 'يعزّز الإشراق'], 'fr' => ['Lisse le grain', 'Affine les pores', 'Ravive l’éclat']],
-                'how_to_use' => ['en' => ['Sweep over clean skin at night', 'Start 2–3 times a week', 'Always use SPF next day'], 'ar' => ['مرّريه على بشرة نظيفة ليلًا', 'ابدئي 2–3 مرات أسبوعيًا', 'استخدمي الواقي الشمسي في اليوم التالي'], 'fr' => ['Passez sur peau propre le soir', 'Commencez 2–3 fois/semaine', 'SPF le lendemain']],
-                'variants' => [['name' => '200 ml', 'sku' => 'AHA-200']],
+                'category' => 'facecare', 'price' => 30.00,
+                'featured' => true, 'badges' => [ProductBadge::Bestseller->value],
+                'tags' => ['brightening', 'aging', 'derm-tested'],
+                'name' => ['en' => 'Clarifying Night Cream', 'ar' => 'كريم التفتيح الليلي', 'fr' => 'Crème Clarifiante Nuit'],
+                'short' => ['en' => 'Overnight brightening and barrier repair.', 'ar' => 'تفتيح ليلي وإصلاح لحاجز البشرة.', 'fr' => 'Éclat et réparation de la barrière, la nuit.'],
+                'description' => ['en' => 'A night clarifying cream with ceramides, niacinamide, alpha arbutin, kojic acid, vitamin C and licorice extract that brightens, evens tone and strengthens the skin barrier while you sleep.', 'ar' => 'كريم ليلي مفتّح يحتوي على السيراميد والنياسيناميد وألفا أربوتين وحمض الكوجيك وفيتامين C وخلاصة العرقسوس، يفتّح ويوحّد اللون ويقوّي حاجز البشرة أثناء النوم.', 'fr' => 'Une crème de nuit clarifiante aux céramides, niacinamide, alpha arbutine, acide kojique, vitamine C et extrait de réglisse qui illumine, unifie le teint et renforce la barrière cutanée pendant le sommeil.'],
+                'ingredients' => ['en' => 'Ceramides, Niacinamide (B3), Alpha Arbutin, Kojic Acid, Vitamin C, Licorice Extract.', 'ar' => 'سيراميد، نياسيناميد (B3)، ألفا أربوتين، حمض الكوجيك، فيتامين C، خلاصة العرقسوس.', 'fr' => 'Céramides, Niacinamide (B3), Alpha arbutine, Acide kojique, Vitamine C, Extrait de réglisse.'],
+                'benefits' => ['en' => ['Reduces pigmentation spots', 'Evens skin tone', 'Reinforces the skin barrier', 'Fades hyperpigmentation and post-blemish marks'], 'ar' => ['يقلّل البقع التصبغية', 'يوحّد لون البشرة', 'يقوّي حاجز البشرة', 'يخفّف التصبّغ وآثار ما بعد الحبوب'], 'fr' => ['Réduit les taches pigmentaires', 'Unifie la couleur de la peau', 'Renforce la barrière cutanée', 'Atténue l’hyperpigmentation et les taches post-inflammatoires']],
+                'how_to_use' => ['en' => ['Apply at night', 'Massage into the face in circular motions until absorbed'], 'ar' => ['يُطبّق ليلًا', 'دلّكيه على الوجه بحركات دائرية حتى الامتصاص'], 'fr' => ['Appliquer la nuit', 'Masser le visage par mouvements circulaires pour faciliter la pénétration']],
+                'variants' => [['name' => '50 ml', 'sku' => 'DV-CN-50']],
                 'images' => ['night-cream.jpg', 'product-1.jpg'],
             ],
             [
-                'category' => 'lips', 'price' => 16.00,
-                'badges' => [ProductBadge::NewArrival->value],
-                'tags' => ['vegan'],
-                'name' => ['en' => 'Velvet Matte Lipstick', 'ar' => 'أحمر شفاه مطفي مخملي', 'fr' => 'Rouge à Lèvres Mat Velours'],
-                'short' => ['en' => 'Full-coverage matte that feels weightless.', 'ar' => 'تغطية كاملة مطفية بإحساس خفيف.', 'fr' => 'Mat couvrant à la sensation légère.'],
-                'description' => ['en' => 'A creamy matte lipstick with long wear and a comfortable feel.', 'ar' => 'أحمر شفاه كريمي مطفي يدوم طويلًا بإحساس مريح.', 'fr' => 'Un rouge à lèvres mat crémeux longue tenue et confortable.'],
-                'ingredients' => ['en' => 'Caprylic/Capric Triglyceride, Jojoba Oil, Vitamin E, Pigments.', 'ar' => 'ثلاثي الجليسريد، زيت الجوجوبا، فيتامين هـ، أصباغ.', 'fr' => 'Triglycéride caprylique, Huile de jojoba, Vitamine E, Pigments.'],
-                'benefits' => ['en' => ['Long wear', 'Comfortable matte', 'Vegan formula'], 'ar' => ['ثبات طويل', 'مطفي مريح', 'تركيبة نباتية'], 'fr' => ['Longue tenue', 'Mat confortable', 'Formule végane']],
-                'how_to_use' => ['en' => ['Line lips then fill', 'Blot for a softer finish'], 'ar' => ['حدّدي الشفاه ثم املئيها', 'اضغطي بمنديل للمسة أنعم'], 'fr' => ['Tracez puis remplissez', 'Tamponnez pour un fini plus doux']],
-                'variants' => [['name' => 'Rosewood', 'sku' => 'VL-RW'], ['name' => 'Terracotta', 'sku' => 'VL-TC'], ['name' => 'Classic Red', 'sku' => 'VL-CR']],
-                'images' => ['beauty-face.jpg', 'hero-shelf.jpg'],
+                'category' => 'suncare', 'price' => 22.00,
+                'featured' => true, 'badges' => [ProductBadge::Bestseller->value, ProductBadge::NewArrival->value],
+                'tags' => ['sensitive', 'fragrance-free', 'derm-tested'],
+                'name' => ['en' => 'Dermo Protect Sunscreen', 'ar' => 'ديرمو بروتكت واقٍ شمسي', 'fr' => 'Dermo Protect Crème Solaire'],
+                'short' => ['en' => 'High mineral protection, no chemical filters.', 'ar' => 'حماية معدنية عالية بدون فلاتر كيميائية.', 'fr' => 'Haute protection minérale, sans filtres chimiques.'],
+                'description' => ['en' => 'A broad-spectrum mineral sunscreen free of chemical filters. It protects against UVA and UVB rays with a non-greasy, fast-absorbing, non-comedogenic and fragrance-free formula suitable for every skin type.', 'ar' => 'واقٍ شمسي معدني واسع الطيف خالٍ من الفلاتر الكيميائية. يحمي من أشعة UVA وUVB بتركيبة غير دهنية سريعة الامتصاص وغير مسدّة للمسام وخالية من العطور تناسب جميع أنواع البشرة.', 'fr' => 'Un écran solaire minéral large spectre sans filtres chimiques. Il protège des rayons UVA et UVB avec une formule non grasse, à absorption rapide, non comédogène et sans parfum, adaptée à tous les types de peau.'],
+                'ingredients' => ['en' => 'Zinc Oxide, natural-origin actives, Glycerin, Tocopherol (Vitamin E).', 'ar' => 'أكسيد الزنك، مكوّنات ذات أصل طبيعي، جليسرين، توكوفيرول (فيتامين E).', 'fr' => 'Oxyde de zinc, actifs d’origine naturelle, Glycérine, Tocophérol (Vitamine E).'],
+                'benefits' => ['en' => ['Broad-spectrum UVA/UVB protection', 'Lightweight, non-greasy texture', 'Hypoallergenic and fragrance-free', 'Non-comedogenic — suits acne-prone skin'], 'ar' => ['حماية واسعة الطيف من UVA وUVB', 'قوام خفيف غير دهني', 'مضاد للحساسية وخالٍ من العطور', 'غير مسدّ للمسام ويناسب البشرة المعرّضة للحبوب'], 'fr' => ['Protection large spectre UVA/UVB', 'Texture légère et non grasse', 'Hypoallergénique et sans parfum', 'Non comédogène, idéal pour les peaux à imperfections']],
+                'how_to_use' => ['en' => ['Apply generously before sun exposure', 'Reapply every 2 to 4 hours'], 'ar' => ['ضعيه بسخاء قبل التعرّض للشمس', 'أعيدي تطبيقه كل ساعتين إلى أربع ساعات'], 'fr' => ['Appliquer généreusement avant l’exposition au soleil', 'Renouveler l’application toutes les 2 à 4 heures']],
+                'variants' => [['name' => '50 ml', 'sku' => 'DP-SS-50']],
+                'images' => ['brightening-spf.jpg', 'hero-campaign.jpg'],
             ],
             [
-                'category' => 'body', 'price' => 20.00,
-                'tags' => ['dry', 'hydration', 'fragrance-free'],
-                'name' => ['en' => 'Nourishing Body Lotion', 'ar' => 'لوشن الجسم المغذّي', 'fr' => 'Lait Corporel Nourrissant'],
-                'short' => ['en' => 'Silky, fast-absorbing daily body care.', 'ar' => 'عناية يومية حريرية سريعة الامتصاص.', 'fr' => 'Soin corporel soyeux à absorption rapide.'],
-                'description' => ['en' => 'A nourishing lotion that softens and hydrates for 24 hours.', 'ar' => 'لوشن مغذٍّ ينعّم ويرطّب لمدة 24 ساعة.', 'fr' => 'Un lait nourrissant qui adoucit et hydrate 24 heures.'],
-                'ingredients' => ['en' => 'Aqua, Shea Butter, Glycerin, Oat Extract, Squalane.', 'ar' => 'ماء، زبدة الشيا، جليسرين، خلاصة الشوفان، سكوالان.', 'fr' => 'Aqua, Beurre de karité, Glycérine, Extrait d’avoine, Squalane.'],
-                'benefits' => ['en' => ['24h softness', 'Fast absorbing', 'Fragrance-free'], 'ar' => ['نعومة 24 ساعة', 'سريع الامتصاص', 'خالٍ من العطور'], 'fr' => ['Douceur 24h', 'Absorption rapide', 'Sans parfum']],
-                'how_to_use' => ['en' => ['Massage over body after showering', 'Use daily'], 'ar' => ['دلّكيه على الجسم بعد الاستحمام', 'استخدميه يوميًا'], 'fr' => ['Massez sur le corps après la douche', 'Usage quotidien']],
-                'variants' => [['name' => '250 ml', 'sku' => 'BL-250']],
-                'images' => ['body-lotion-pump.jpg', 'body-lotion.jpg'],
+                'category' => 'bodycare', 'price' => 20.00,
+                'tags' => ['dry', 'hydration', 'brightening'],
+                'name' => ['en' => 'Nourishing Body Lotion', 'ar' => 'لوشن الجسم المغذّي', 'fr' => 'Lait de Corps Nourrissant'],
+                'short' => ['en' => 'Brightening, fast-absorbing daily body care.', 'ar' => 'عناية يومية مفتّحة سريعة الامتصاص للجسم.', 'fr' => 'Soin corporel éclat, à absorption rapide.'],
+                'description' => ['en' => 'A nourishing body lotion with niacinamide, glycerin, alpha arbutin, kojic acid, vitamin C and glycolic acid that hydrates, gently exfoliates and evens the skin tone.', 'ar' => 'لوشن مغذٍّ للجسم يحتوي على النياسيناميد والجليسرين وألفا أربوتين وحمض الكوجيك وفيتامين C وحمض الجلايكوليك، يرطّب ويقشّر بلطف ويوحّد لون البشرة.', 'fr' => 'Un lait corporel nourrissant au niacinamide, glycérine, alpha arbutine, acide kojique, vitamine C et acide glycolique qui hydrate, exfolie en douceur et unifie le teint.'],
+                'ingredients' => ['en' => 'Niacinamide (B3), Glycerin, Alpha Arbutin, Kojic Acid, Vitamin C, Glycolic Acid (AHA).', 'ar' => 'نياسيناميد (B3)، جليسرين، ألفا أربوتين، حمض الكوجيك، فيتامين C، حمض الجلايكوليك (AHA).', 'fr' => 'Niacinamide (B3), Glycérine, Alpha arbutine, Acide kojique, Vitamine C, Acide glycolique (AHA).'],
+                'benefits' => ['en' => ['Deep, lasting hydration', 'Brightens and evens the skin tone', 'Gently exfoliates for smoother skin', 'Softens and comforts the body'], 'ar' => ['ترطيب عميق يدوم طويلًا', 'يفتّح ويوحّد لون البشرة', 'يقشّر بلطف لبشرة أنعم', 'ينعّم الجسم ويمنحه الراحة'], 'fr' => ['Hydratation profonde et durable', 'Éclaircit et unifie le teint', 'Exfolie en douceur pour une peau plus lisse', 'Adoucit et apaise le corps']],
+                'how_to_use' => ['en' => ['Warm a generous amount between your palms for 3 seconds', 'Massage upward from ankles to waist, then wrists to shoulders, and lower abdomen upward for 2 minutes'], 'ar' => ['دفّئي كمية وفيرة بين راحتيك لمدة 3 ثوانٍ', 'دلّكيه صعودًا من الكاحلين إلى الخصر، ثم من المعصمين إلى الكتفين، ومن أسفل البطن إلى الأعلى لمدة دقيقتين'], 'fr' => ['Chauffez une noix de produit entre les paumes 3 secondes', 'Massez en remontant des chevilles vers la taille, des poignets vers les épaules, puis du bas-ventre vers le haut pendant 2 minutes']],
+                'variants' => [['name' => '250 ml', 'sku' => 'DV-BL-250']],
+                'images' => ['body-lotion.jpg', 'body-lotion-pump.jpg'],
+            ],
+            [
+                'category' => 'bodycare', 'price' => 18.00,
+                'badges' => [ProductBadge::NewArrival->value],
+                'tags' => ['sensitive', 'fragrance-free', 'derm-tested'],
+                'name' => ['en' => 'Dermo Cica Repair Cream', 'ar' => 'ديرمو سيكا كريم مصلح', 'fr' => 'Dermo Cica Crème Cicatrisante'],
+                'short' => ['en' => 'Soothing repair cream for fast healing.', 'ar' => 'كريم مهدّئ ومصلح لالتئام سريع.', 'fr' => 'Crème réparatrice apaisante pour une guérison rapide.'],
+                'description' => ['en' => 'A repairing cream with beeswax, beta-sitosterol, panthenol, aloe vera, zinc oxide and plant oils that forms a breathable barrier, soothes and speeds up skin recovery. Fragrance-free and suitable for all ages, including during pregnancy and breastfeeding.', 'ar' => 'كريم مصلح يحتوي على شمع العسل وبيتا-سيتوستيرول والبانثينول والصبار وأكسيد الزنك وزيوت نباتية، يشكّل طبقة حاجزة تسمح بالتنفّس ويهدّئ ويسرّع تعافي البشرة. خالٍ من العطور ويناسب جميع الأعمار، بما في ذلك أثناء الحمل والرضاعة.', 'fr' => 'Une crème réparatrice à la cire d’abeille, au bêta-sitostérol, au panthénol, à l’aloe vera, à l’oxyde de zinc et aux huiles végétales qui forme une barrière respirante, apaise et accélère la réparation de la peau. Sans parfum et convient à tous les âges, y compris pendant la grossesse et l’allaitement.'],
+                'ingredients' => ['en' => 'Beeswax, Beta-sitosterol, Panthenol, Aloe Vera Extract, Zinc Oxide, Sesame Oil, Olive Oil, Almond Oil.', 'ar' => 'شمع العسل، بيتا-سيتوستيرول، بانثينول، خلاصة الصبار، أكسيد الزنك، زيت السمسم، زيت الزيتون، زيت اللوز.', 'fr' => 'Cire d’abeille, Bêta-sitostérol, Panthénol, Extrait d’aloe vera, Oxyde de zinc, Huile de sésame, Huile d’olive, Huile d’amande.'],
+                'benefits' => ['en' => ['Forms a breathable protective barrier', 'Reduces inflammation and itching', 'Deeply hydrates and speeds regeneration', 'Supports skin repair'], 'ar' => ['يشكّل طبقة حاجزة واقية تسمح بالتنفّس', 'يقلّل الالتهاب والحكة', 'يرطّب بعمق ويسرّع التجدّد', 'يدعم إصلاح البشرة'], 'fr' => ['Forme une barrière respirante protectrice', 'Réduit les inflammations et démangeaisons', 'Hydrate en profondeur et accélère la régénération', 'Soutient la réparation de la peau']],
+                'how_to_use' => ['en' => ['Apply a thin layer to wounds, cuts or burns 2–3 times a day', 'Cover with a bandage or dressing if needed'], 'ar' => ['ضعي طبقة رقيقة على الجروح أو الحروق مرتين إلى ثلاث مرات يوميًا', 'غطّيها بضمادة أو لاصق عند الحاجة'], 'fr' => ['Appliquer une fine couche sur les plaies, blessures ou brûlures 2 à 3 fois par jour', 'Recouvrir d’un pansement si nécessaire']],
+                'variants' => [['name' => '50 ml', 'sku' => 'DC-RC-50']],
+                'images' => ['product-1.jpg', 'collection.jpg'],
+            ],
+            [
+                'category' => 'facecare', 'price' => 24.00,
+                'tags' => ['sensitive', 'hydration', 'fragrance-free', 'derm-tested'],
+                'name' => ['en' => 'Dermanthenol Repair Cream', 'ar' => 'ديرمانثينول كريم مرمّم', 'fr' => 'Dermanthenol Crème Réparatrice'],
+                'short' => ['en' => 'Panthenol, ceramide & hyaluronic repair.', 'ar' => 'إصلاح بالبانثينول والسيراميد وحمض الهيالورونيك.', 'fr' => 'Réparation panthénol, céramide & acide hyaluronique.'],
+                'description' => ['en' => 'A restorative cream with panthenol (provitamin B5), ceramides and hyaluronic acid that deeply soothes, repairs and reinforces the skin barrier for soft, revitalised and visibly healthier skin.', 'ar' => 'كريم مرمّم يحتوي على البانثينول (بروفيتامين B5) والسيراميد وحمض الهيالورونيك، يهدّئ ويصلح ويقوّي حاجز البشرة بعمق لبشرة ناعمة ومتجدّدة وأكثر صحة.', 'fr' => 'Une crème réparatrice au panthénol (provitamine B5), aux céramides et à l’acide hyaluronique qui apaise, répare et renforce en profondeur la barrière cutanée pour une peau douce, revitalisée et visiblement plus saine.'],
+                'ingredients' => ['en' => 'Panthenol (Provitamin B5), Ceramides, Hyaluronic Acid.', 'ar' => 'بانثينول (بروفيتامين B5)، سيراميد، حمض الهيالورونيك.', 'fr' => 'Panthénol (Provitamine B5), Céramides, Acide hyaluronique.'],
+                'benefits' => ['en' => ['Intense, long-lasting hydration', 'Repairs and soothes irritated skin', 'Reinforces the skin barrier', 'Regeneration and natural radiance'], 'ar' => ['ترطيب مكثّف يدوم طويلًا', 'يصلح ويهدّئ البشرة المتهيّجة', 'يقوّي حاجز البشرة', 'تجدّد وإشراقة طبيعية'], 'fr' => ['Hydratation intense et longue durée', 'Répare et apaise les peaux irritées', 'Renforce la barrière cutanée', 'Régénération et éclat naturel']],
+                'how_to_use' => ['en' => ['Apply to dry or irritated areas', 'Use morning and/or night until absorbed'], 'ar' => ['ضعيه على المناطق الجافة أو المتهيّجة', 'استخدميه صباحًا و/أو مساءً حتى الامتصاص'], 'fr' => ['Appliquer sur les zones sèches ou irritées', 'Utiliser matin et/ou soir jusqu’à absorption']],
+                'variants' => [['name' => '50 ml', 'sku' => 'DM-RC-50']],
+                'images' => ['collection.jpg', 'serum.jpg'],
             ],
         ];
     }
@@ -245,21 +225,21 @@ class CatalogSeeder extends Seeder
                 'title' => ['en' => 'Radiance, rooted in science', 'ar' => 'إشراقةٌ نابعةٌ من العلم', 'fr' => 'L’éclat, enraciné dans la science'],
                 'subtitle' => ['en' => 'Discover the Dermovive skincare edit.', 'ar' => 'اكتشفي تشكيلة ديرموفيف للعناية بالبشرة.', 'fr' => 'Découvrez la sélection soin Dermovive.'],
                 'cta_label' => ['en' => 'Shop skincare', 'ar' => 'تسوّقي العناية', 'fr' => 'Voir les soins'],
-                'link_type' => LinkType::Category, 'link_target' => 'skincare',
+                'link_type' => LinkType::Category, 'link_target' => 'cosmetics-skincare',
                 'image' => 'hero-campaign.jpg',
             ],
             [
-                'title' => ['en' => 'New: Vitamin C Glow', 'ar' => 'جديد: إشراقة فيتامين سي', 'fr' => 'Nouveau : Éclat Vitamine C'],
-                'subtitle' => ['en' => 'Brighten and even your tone.', 'ar' => 'فتّحي ووحّدي لون بشرتك.', 'fr' => 'Illuminez et unifiez votre teint.'],
+                'title' => ['en' => 'Clarify & even your tone', 'ar' => 'صفاءٌ وتوحيدٌ للون بشرتك', 'fr' => 'Clarifiez et unifiez votre teint'],
+                'subtitle' => ['en' => 'The Clarifying Day Cream for a radiant complexion.', 'ar' => 'كريم التفتيح النهاري لإطلالة مشرقة.', 'fr' => 'La Crème Clarifiante Jour pour un teint éclatant.'],
                 'cta_label' => ['en' => 'Discover', 'ar' => 'اكتشفي', 'fr' => 'Découvrir'],
-                'link_type' => LinkType::Product, 'link_target' => 'vitamin-c-brightening-serum',
+                'link_type' => LinkType::Product, 'link_target' => 'clarifying-day-cream',
                 'image' => 'hero-shelf.jpg',
             ],
             [
                 'title' => ['en' => 'Sun care, reimagined', 'ar' => 'حماية شمسية بحلّة جديدة', 'fr' => 'La protection solaire réinventée'],
-                'subtitle' => ['en' => 'Invisible SPF 50 for every day.', 'ar' => 'حماية SPF 50 شفافة لكل يوم.', 'fr' => 'SPF 50 invisible au quotidien.'],
+                'subtitle' => ['en' => 'Mineral protection, no chemical filters.', 'ar' => 'حماية معدنية بدون فلاتر كيميائية.', 'fr' => 'Protection minérale, sans filtres chimiques.'],
                 'cta_label' => ['en' => 'Protect now', 'ar' => 'احمي بشرتك', 'fr' => 'Se protéger'],
-                'link_type' => LinkType::Category, 'link_target' => 'suncare',
+                'link_type' => LinkType::Category, 'link_target' => 'sun-care',
                 'image' => 'collection.jpg',
             ],
         ];
@@ -280,9 +260,9 @@ class CatalogSeeder extends Seeder
         Page::create([
             'title' => ['en' => 'Our Story', 'ar' => 'قصتنا', 'fr' => 'Notre histoire'],
             'body' => [
-                'en' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="Dermovive products arranged in a skincare shelf" /></figure><p>Dermovive Pharma was founded by pharmacists who believe effective skincare should also feel beautiful. Every formula blends clinical research with sensorial care.</p><h2>Formulas with a visible purpose</h2><p>From daily SPF to night creams and body care, each product is developed around real routines, gentle textures, and skin-first performance.</p>',
-                'ar' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="منتجات ديرموفيف مرتبة على رف للعناية بالبشرة" /></figure><p>تأسست ديرموفيف فارما على يد صيادلة يؤمنون بأن العناية الفعّالة بالبشرة يجب أن تكون جميلة أيضًا. كل تركيبة تمزج بين الأبحاث السريرية والعناية الحسّية.</p><h2>تركيبات بهدف واضح</h2><p>من الواقي الشمسي اليومي إلى كريمات الليل والعناية بالجسم، كل منتج مصمم حول روتين حقيقي وملمس لطيف وأداء يضع البشرة أولًا.</p>',
-                'fr' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="Produits Dermovive disposés sur une étagère de soin" /></figure><p>Dermovive Pharma a été fondée par des pharmaciens convaincus qu’un soin efficace doit aussi être beau. Chaque formule allie recherche clinique et plaisir sensoriel.</p><h2>Des formules à la mission visible</h2><p>Du SPF quotidien aux crèmes de nuit et soins du corps, chaque produit est pensé pour les vrais rituels, les textures douces et la performance cutanée.</p>',
+                'en' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="Dermovive products arranged in a skincare shelf" /></figure><p>Dermovive Pharma is a cosmetics laboratory specializing in the development and manufacturing of skincare products. We are committed to delivering innovative skincare solutions that combine efficacy, safety, and premium-quality ingredients, tailored to the needs of African and international markets.</p><h2>Our Vision</h2><p>To empower self-confidence through safe and effective cosmetic products formulated with natural ingredients that enhance overall skin health and reveal natural beauty. We aspire to expand our presence across all West African countries by 2030, establishing Dermovive Pharma as a trusted leader in the cosmetics industry.</p><h2>Our Mission</h2><p>To become the preferred choice for women worldwide by offering innovative, sustainable and affordable skincare solutions — providing high-quality products at accessible prices for all social and economic groups, while celebrating diversity and promoting natural beauty.</p>',
+                'ar' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="منتجات ديرموفيف مرتبة على رف للعناية بالبشرة" /></figure><p>ديرموفيف فارما مختبر لمستحضرات التجميل متخصص في تطوير وتصنيع منتجات العناية بالبشرة. نلتزم بتقديم حلول مبتكرة للعناية بالبشرة تجمع بين الفعالية والأمان والمكوّنات عالية الجودة، مصمّمة لتلبية احتياجات الأسواق الأفريقية والعالمية.</p><h2>رؤيتنا</h2><p>تعزيز الثقة بالنفس من خلال منتجات تجميل آمنة وفعّالة مصنوعة من مكوّنات طبيعية تعزّز صحة البشرة وتُبرز الجمال الطبيعي. نطمح إلى التوسّع في جميع دول غرب أفريقيا بحلول عام 2030 لنصبح روّادًا موثوقين في صناعة التجميل.</p><h2>رسالتنا</h2><p>أن نصبح الخيار المفضّل للنساء حول العالم بتقديم حلول عناية مبتكرة ومستدامة وبأسعار في المتناول، مع توفير منتجات عالية الجودة بأسعار تناسب جميع الفئات الاجتماعية والاقتصادية، والاحتفاء بالتنوّع وتعزيز الجمال الطبيعي.</p>',
+                'fr' => '<figure><img src="/brand/hero-dermo-shelf.jpg" alt="Produits Dermovive disposés sur une étagère de soin" /></figure><p>Dermovive Pharma est un laboratoire cosmétique spécialisé dans le développement et la fabrication de produits de soin. Nous nous engageons à proposer des solutions de soin innovantes alliant efficacité, sécurité et ingrédients de qualité premium, adaptées aux besoins des marchés africains et internationaux.</p><h2>Notre Vision</h2><p>Renforcer la confiance en soi grâce à des produits cosmétiques sûrs et efficaces, formulés avec des ingrédients naturels qui améliorent la santé de la peau et révèlent la beauté naturelle. Nous aspirons à étendre notre présence dans toute l’Afrique de l’Ouest d’ici 2030, faisant de Dermovive Pharma un leader de confiance dans l’industrie cosmétique.</p><h2>Notre Mission</h2><p>Devenir le choix préféré des femmes du monde entier en offrant des soins innovants, durables et abordables — des produits de haute qualité à des prix accessibles à tous les groupes sociaux et économiques, tout en célébrant la diversité et en valorisant la beauté naturelle.</p>',
             ],
             'is_published' => true,
         ]);
@@ -290,9 +270,9 @@ class CatalogSeeder extends Seeder
         Page::create([
             'title' => ['en' => 'Contact', 'ar' => 'تواصلي معنا', 'fr' => 'Contact'],
             'body' => [
-                'en' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Dermovive skincare product collection" /></figure><p>Questions about our products? Our team is here to help you choose the right Dermovive routine for your skin.</p>',
-                'ar' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="مجموعة منتجات ديرموفيف للعناية بالبشرة" /></figure><p>هل لديك أسئلة حول منتجاتنا؟ فريقنا هنا لمساعدتك على اختيار روتين ديرموفيف المناسب لبشرتك.</p>',
-                'fr' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Collection de produits de soin Dermovive" /></figure><p>Des questions sur nos produits ? Notre équipe vous aide à choisir le rituel Dermovive adapté à votre peau.</p>',
+                'en' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Dermovive skincare product collection" /></figure><p>Questions about our products? Our team is here to help you choose the right Dermovive routine for your skin.</p><ul><li><strong>Email:</strong> dermovivepharmasn@gmail.com</li><li><strong>Phone:</strong> +221 77 486 2247</li><li><strong>Address:</strong> Dakar, Sénégal</li></ul>',
+                'ar' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="مجموعة منتجات ديرموفيف للعناية بالبشرة" /></figure><p>هل لديك أسئلة حول منتجاتنا؟ فريقنا هنا لمساعدتك على اختيار روتين ديرموفيف المناسب لبشرتك.</p><ul><li><strong>البريد الإلكتروني:</strong> dermovivepharmasn@gmail.com</li><li><strong>الهاتف:</strong> +221 77 486 2247</li><li><strong>العنوان:</strong> داكار، السنغال</li></ul>',
+                'fr' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Collection de produits de soin Dermovive" /></figure><p>Des questions sur nos produits ? Notre équipe vous aide à choisir le rituel Dermovive adapté à votre peau.</p><ul><li><strong>E-mail :</strong> dermovivepharmasn@gmail.com</li><li><strong>Téléphone :</strong> +221 77 486 2247</li><li><strong>Adresse :</strong> Dakar, Sénégal</li></ul>',
             ],
             'is_published' => true,
         ]);
@@ -301,26 +281,22 @@ class CatalogSeeder extends Seeder
     protected function seedSettings(): void
     {
         Setting::set('site_name', 'Dermovive Pharma');
-        Setting::set('tagline', 'Science-led skincare, crafted to be loved.');
-        Setting::set('contact_email', 'hello@dermovive.test');
-        Setting::set('contact_phone', '+962 7 0000 0000');
-        Setting::set('address', 'Amman, Jordan');
+        Setting::set('tagline', 'Innovative, safe and effective skincare — crafted for African and international skin.');
+        Setting::set('contact_email', 'dermovivepharmasn@gmail.com');
+        Setting::set('contact_phone', '+221 77 486 2247');
+        Setting::set('address', 'Dakar, Sénégal');
     }
 
     protected function seedCategoryMedia(): void
     {
         $images = [
-            'skincare' => 'collection.jpg',
-            'makeup' => 'beauty-face.jpg',
-            'body' => 'body-lotion-pump.jpg',
+            'cosmetics' => 'collection.jpg',
+            'supplements' => 'product-1.jpg',
+            'devices' => 'hero-shelf.jpg',
             'cleansers' => 'cleanser.jpg',
-            'serums' => 'serum.jpg',
-            'moisturisers' => 'day-cream.jpg',
+            'facecare' => 'day-cream.jpg',
             'suncare' => 'brightening-spf.jpg',
-            'gentle-cleansers' => 'cleanser.jpg',
-            'exfoliators' => 'night-cream.jpg',
-            'face' => 'hero-shelf.jpg',
-            'lips' => 'lipstick.jpg',
+            'bodycare' => 'body-lotion-pump.jpg',
         ];
 
         foreach ($images as $key => $image) {
