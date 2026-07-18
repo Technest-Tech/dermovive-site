@@ -9,8 +9,10 @@ import { FadeIn } from "@/components/ui/FadeIn";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { ProductRail } from "@/components/home/ProductRail";
 import { CategoryTeasers } from "@/components/home/CategoryTeasers";
-import { getHome } from "@/lib/queries";
+import { CmsContent } from "@/components/content/CmsContent";
+import { getHome, getPage } from "@/lib/queries";
 import { alternatesFor } from "@/lib/seo";
+import type { PageContent } from "@/lib/types";
 
 const COLLECTION_IMAGE = "/brand/collection-dermo-white.jpg";
 
@@ -38,7 +40,10 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const home = await getHome(locale);
+  const [home, story] = await Promise.all([
+    getHome(locale),
+    getPage("our-story", locale),
+  ]);
   const tHome = await getTranslations("home");
   const tRails = await getTranslations("home.rails");
 
@@ -49,6 +54,8 @@ export default async function HomePage({
       <TrustBar />
 
       <WhoWeAre />
+
+      <OurStory page={story} />
 
       <Values />
 
@@ -86,7 +93,46 @@ export default async function HomePage({
       <Story />
 
       <Certifications />
+
+      <AboutCta />
     </>
+  );
+}
+
+function OurStory({ page }: { page: PageContent | null }) {
+  const t = useTranslations("about");
+  const tn = useTranslations("nav");
+  const title = page?.title ?? tn("about");
+
+  return (
+    <section id="our-story" className="container-page scroll-mt-24 py-16 sm:py-20">
+      <FadeIn>
+        <div className="max-w-3xl">
+          <span className="eyebrow">{t("eyebrow")}</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl">{title}</h2>
+          {page?.body && <CmsContent html={page.body} className="mt-6" />}
+        </div>
+      </FadeIn>
+    </section>
+  );
+}
+
+function AboutCta() {
+  const t = useTranslations("about");
+  return (
+    <section className="container-page pb-20 pt-4">
+      <div className="overflow-hidden rounded-card bg-teal-800 px-8 py-14 text-center text-cream sm:px-10">
+        <h2 className="text-3xl text-cream sm:text-4xl">{t("ctaTitle")}</h2>
+        <p className="mx-auto mt-3 max-w-md text-teal-100/80">{t("ctaBody")}</p>
+        <Link
+          href="/products"
+          className={buttonClasses({ size: "lg", className: "mt-7" })}
+        >
+          {t("ctaButton")}
+          <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+        </Link>
+      </div>
+    </section>
   );
 }
 

@@ -7,10 +7,8 @@ import { MegaMenu } from "./MegaMenu";
 import { MobileMenu } from "./MobileMenu";
 import type { Category } from "@/lib/types";
 
-const staticNav = [
-  { key: "products", href: "/products" },
-  { key: "contact", href: "/contact" },
-] as const;
+const navLinkClass =
+  "text-sm font-medium text-teal-800/80 transition-colors hover:text-coral-600";
 
 export function Header({ categories }: { categories: Category[] }) {
   const t = useTranslations("nav");
@@ -22,16 +20,16 @@ export function Header({ categories }: { categories: Category[] }) {
         <Logo />
 
         <nav className="hidden items-center gap-8 lg:flex">
+          <Link href="/" className={navLinkClass}>
+            {t("home")}
+          </Link>
+          <Link href="/products" className={navLinkClass}>
+            {t("products")}
+          </Link>
           <MegaMenu categories={categories} />
-          {staticNav.map((item) => (
-            <Link
-              key={item.key}
-              href={item.href}
-              className="text-sm font-medium text-teal-800/80 transition-colors hover:text-coral-600"
-            >
-              {t(item.key)}
-            </Link>
-          ))}
+          <Link href="/contact" className={navLinkClass}>
+            {t("contact")}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
