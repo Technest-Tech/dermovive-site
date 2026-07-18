@@ -8,7 +8,7 @@ import type { Category } from "@/lib/types";
 
 const staticLinks = [
   { key: "products", href: "/products" },
-  { key: "about", href: "/our-story" },
+  { key: "about", href: "/#about" },
   { key: "contact", href: "/contact" },
 ] as const;
 

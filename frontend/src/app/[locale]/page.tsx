@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { FlaskConical, Leaf, ShieldCheck, Sparkles, ArrowRight, Eye, Target } from "lucide-react";
+import { FlaskConical, Leaf, ShieldCheck, Sparkles, ArrowRight, Eye, Target, Globe, BadgeCheck } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buttonClasses } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
@@ -50,6 +50,8 @@ export default async function HomePage({
 
       <WhoWeAre />
 
+      <Values />
+
       {home && home.featured.length > 0 && (
         <div id="collection" className="scroll-mt-24">
           <ProductRail
@@ -82,7 +84,69 @@ export default async function HomePage({
       )}
 
       <Story />
+
+      <Certifications />
     </>
+  );
+}
+
+const aboutValues = [
+  { icon: FlaskConical, key: "science" },
+  { icon: Leaf, key: "clean" },
+  { icon: Globe, key: "trilingual" },
+  { icon: ShieldCheck, key: "tested" },
+] as const;
+
+const aboutCerts = ["derm", "cruelty", "vegan", "quality"] as const;
+
+function Values() {
+  const t = useTranslations("about");
+  return (
+    <section className="container-page py-16 sm:py-20">
+      <FadeIn>
+        <span className="eyebrow">{t("eyebrow")}</span>
+        <h2 className="mt-3 text-4xl sm:text-5xl">{t("valuesTitle")}</h2>
+      </FadeIn>
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {aboutValues.map(({ icon: Icon, key }, index) => (
+          <FadeIn key={key} delay={index * 0.05}>
+            <div className="h-full rounded-card border border-teal-700/10 bg-white/60 p-6">
+              <span className="grid h-11 w-11 place-items-center rounded-full bg-coral-100 text-coral-600">
+                <Icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 text-lg text-teal-800">
+                {t(`values.${key}.title`)}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {t(`values.${key}.body`)}
+              </p>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Certifications() {
+  const t = useTranslations("about");
+  return (
+    <section className="container-page py-16 sm:py-20">
+      <div className="rounded-card bg-sand/50 p-8 sm:p-10">
+        <h2 className="text-center text-2xl">{t("certsTitle")}</h2>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          {aboutCerts.map((key) => (
+            <span
+              key={key}
+              className="inline-flex items-center gap-2 text-sm font-medium text-teal-800"
+            >
+              <BadgeCheck className="h-5 w-5 text-coral-500" />
+              {t(`certs.${key}`)}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

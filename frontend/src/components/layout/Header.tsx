@@ -9,7 +9,6 @@ import type { Category } from "@/lib/types";
 
 const staticNav = [
   { key: "products", href: "/products" },
-  { key: "about", href: "/our-story" },
   { key: "contact", href: "/contact" },
 ] as const;
 

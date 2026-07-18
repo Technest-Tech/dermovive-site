@@ -7,7 +7,7 @@ import type { Settings } from "@/lib/types";
 
 const exploreLinks = [
   { key: "products", href: "/products" },
-  { key: "about", href: "/our-story" },
+  { key: "about", href: "/#about" },
   { key: "contact", href: "/contact" },
 ] as const;
 
