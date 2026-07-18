@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Breadcrumbs } from "@/components/catalog/Breadcrumbs";
 import { CmsContent } from "@/components/content/CmsContent";
+import { ContactForm } from "@/components/content/ContactForm";
 import { getPage, getSettings } from "@/lib/queries";
 import { alternatesFor } from "@/lib/seo";
 
@@ -64,8 +65,6 @@ export default async function ContactPage({ params }: { params: Params }) {
     ltr?: boolean;
   }[];
 
-  const fields = ["name", "email", "subject"] as const;
-
   return (
     <div className="container-page py-10 sm:py-14">
       <Breadcrumbs items={[{ href: "/", label: tn("home") }, { label: title }]} />
@@ -111,57 +110,8 @@ export default async function ContactPage({ params }: { params: Params }) {
           </ul>
         </div>
 
-        {/* Form (preview — messaging goes live in a later phase) */}
-        <div className="rounded-card border border-teal-700/10 bg-white/60 p-6 sm:p-8">
-          <h2 className="text-xl text-teal-800">{t("form.title")}</h2>
-          <p className="mt-2 text-sm text-muted">{t("form.note")}</p>
-
-          <form className="mt-6 space-y-4" aria-label={t("form.title")}>
-            {fields.map((field) => (
-              <div key={field}>
-                <label
-                  htmlFor={field}
-                  className="mb-1.5 block text-sm font-medium text-teal-800"
-                >
-                  {t(`form.${field}`)}
-                </label>
-                <input
-                  id={field}
-                  name={field}
-                  type={field === "email" ? "email" : "text"}
-                  disabled
-                  className="h-11 w-full rounded-xl border border-teal-700/15 bg-white/70 px-4 text-sm text-ink placeholder:text-muted disabled:cursor-not-allowed"
-                />
-              </div>
-            ))}
-
-            <div>
-              <label
-                htmlFor="message"
-                className="mb-1.5 block text-sm font-medium text-teal-800"
-              >
-                {t("form.message")}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                disabled
-                className="w-full rounded-xl border border-teal-700/15 bg-white/70 px-4 py-3 text-sm text-ink placeholder:text-muted disabled:cursor-not-allowed"
-              />
-            </div>
-
-            <button
-              type="button"
-              disabled
-              aria-disabled
-              title={t("form.soon")}
-              className="h-11 w-full cursor-not-allowed rounded-pill bg-coral-500/60 px-6 text-sm font-medium text-white"
-            >
-              {t("form.submit")} · {t("form.soon")}
-            </button>
-          </form>
-        </div>
+        {/* Live contact form */}
+        <ContactForm />
       </div>
     </div>
   );

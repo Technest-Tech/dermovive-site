@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\ContactController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\PageController;
 use App\Http\Controllers\Api\V1\ProductController;
@@ -46,6 +47,11 @@ Route::prefix('v1')->name('api.v1.')->middleware(SetLocale::class)->group(functi
     Route::get('/pages/{slug}', [PageController::class, 'show'])->name('pages.show');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+
+    // Public write path: visitor contact form. Throttled to curb spam.
+    Route::post('/contact', [ContactController::class, 'store'])
+        ->middleware('throttle:8,1')
+        ->name('contact.store');
 });
 
 // Authenticated user (Sanctum) — kept for future customer/admin token flows.

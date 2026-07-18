@@ -188,13 +188,17 @@
     "address": "Adresse",
     "form": {
       "title": "Envoyez-nous un message",
-      "note": "Ce formulaire est un aperçu — la messagerie en ligne arrive bientôt. En attendant, écrivez-nous ou appelez-nous, nous répondrons rapidement.",
+      "note": "Remplissez le formulaire et notre équipe vous répondra rapidement.",
       "name": "Votre nom",
       "email": "Votre e-mail",
-      "subject": "Sujet",
+      "phone": "Téléphone (facultatif)",
+      "subject": "Sujet (facultatif)",
       "message": "Message",
       "submit": "Envoyer le message",
-      "soon": "Bientôt"
+      "sending": "Envoi…",
+      "success": "Merci de nous avoir contactés ! Votre message a été envoyé — nous vous répondrons bientôt.",
+      "error": "Désolé, une erreur s'est produite. Veuillez réessayer ou nous écrire directement.",
+      "sendAnother": "Envoyer un autre message"
     }
   },
   "notFound": {
