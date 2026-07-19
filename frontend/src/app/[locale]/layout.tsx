@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing, dirFor } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { getCategoryTree, getSettings } from "@/lib/queries";
 import { SITE_URL } from "@/lib/seo";
 import "../globals.css";
@@ -90,6 +91,9 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer settings={settings} />
+          {settings?.contact_phone && (
+            <WhatsAppButton phone={settings.contact_phone} />
+          )}
         </NextIntlClientProvider>
       </body>
     </html>

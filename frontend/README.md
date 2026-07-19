@@ -16,6 +16,20 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Contact form
+
+The contact form sends submissions to email through Web3Forms. Copy `.env.example`
+to `.env.local`, then replace the placeholder with the access key sent to you by
+[Web3Forms](https://web3forms.com/):
+
+```bash
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-access-key
+```
+
+Restart the development server after changing the environment variable. For a
+Docker deployment, pass the same variable as a build argument because public
+Next.js environment variables are embedded during the build.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

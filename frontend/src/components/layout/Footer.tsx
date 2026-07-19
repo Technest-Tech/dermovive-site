@@ -6,8 +6,8 @@ import { buttonClasses } from "@/components/ui/Button";
 import type { Settings } from "@/lib/types";
 
 const exploreLinks = [
+  { key: "home", href: "/" },
   { key: "products", href: "/products" },
-  { key: "about", href: "/our-story" },
   { key: "contact", href: "/contact" },
 ] as const;
 

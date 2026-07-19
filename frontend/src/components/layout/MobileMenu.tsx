@@ -6,10 +6,9 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Category } from "@/lib/types";
 
-const staticLinks = [
+const primaryLinks = [
+  { key: "home", href: "/" },
   { key: "products", href: "/products" },
-  { key: "about", href: "/our-story" },
-  { key: "contact", href: "/contact" },
 ] as const;
 
 /** Hamburger + slide-down drawer for small screens, fed by the category tree. */
@@ -54,8 +53,22 @@ export function MobileMenu({ categories }: { categories: Category[] }) {
             className="fixed inset-x-0 top-18 z-40 max-h-[80vh] overflow-y-auto border-b border-teal-700/10 bg-cream shadow-[var(--shadow-card)]"
           >
             <div className="container-page space-y-6 py-6">
+              <ul className="space-y-3">
+                {primaryLinks.map((item) => (
+                  <li key={item.key}>
+                    <Link
+                      href={item.href}
+                      onClick={close}
+                      className="text-sm font-medium text-teal-800/80 hover:text-coral-600"
+                    >
+                      {t(item.key)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
               {categories.length > 0 && (
-                <div>
+                <div className="border-t border-teal-700/10 pt-5">
                   <p className="eyebrow">{t("shop")}</p>
                   <ul className="mt-3 space-y-4">
                     {categories.map((category) => (
@@ -89,17 +102,15 @@ export function MobileMenu({ categories }: { categories: Category[] }) {
               )}
 
               <ul className="space-y-3 border-t border-teal-700/10 pt-5">
-                {staticLinks.map((item) => (
-                  <li key={item.key}>
-                    <Link
-                      href={item.href}
-                      onClick={close}
-                      className="text-sm font-medium text-teal-800/80 hover:text-coral-600"
-                    >
-                      {t(item.key)}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link
+                    href="/contact"
+                    onClick={close}
+                    className="text-sm font-medium text-teal-800/80 hover:text-coral-600"
+                  >
+                    {t("contact")}
+                  </Link>
+                </li>
               </ul>
             </div>
           </nav>

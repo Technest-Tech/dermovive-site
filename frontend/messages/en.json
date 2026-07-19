@@ -188,14 +188,22 @@
     "address": "Address",
     "form": {
       "title": "Send us a message",
-      "note": "This form is a preview — online messaging goes live soon. Meanwhile, email or call us and we'll respond quickly.",
+      "note": "Complete the form and our team will respond as soon as possible.",
       "name": "Your name",
       "email": "Your email",
       "subject": "Subject",
       "message": "Message",
       "submit": "Send message",
-      "soon": "Coming soon"
+      "sending": "Sending…",
+      "success": "Thank you. Your message has been sent successfully.",
+      "error": "We couldn't send your message. Please try again.",
+      "unavailable": "The contact form is not configured yet. Please email or call us."
     }
+  },
+  "whatsapp": {
+    "label": "Chat on WhatsApp",
+    "ariaLabel": "Chat with Dermovive on WhatsApp",
+    "message": "Hello Dermovive! I would like to know more about your products."
   },
   "notFound": {
     "title": "Page not found",
