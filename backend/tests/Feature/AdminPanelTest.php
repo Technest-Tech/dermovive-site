@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\ContactMessage;
 use App\Models\HeroSlide;
 use App\Models\Page;
 use App\Models\Product;
@@ -27,17 +28,17 @@ class AdminPanelTest extends TestCase
 
     public function test_catalog_was_seeded(): void
     {
-        $this->assertSame(11, Category::count());
-        $this->assertSame(8, Product::count());
+        $this->assertSame(7, Category::count());
+        $this->assertSame(7, Product::count());
         $this->assertSame(11, Tag::count());
         $this->assertSame(3, HeroSlide::count());
         $this->assertSame(2, Page::count());
     }
 
-    public function test_category_tree_is_three_levels_deep(): void
+    public function test_category_tree_is_two_levels_deep(): void
     {
         $deepest = Category::query()->withDepth()->get()->max('depth');
-        $this->assertSame(2, $deepest, 'Expected a 3-level tree (depth 0,1,2).');
+        $this->assertSame(1, $deepest, 'Expected a 2-level tree (depth 0,1).');
     }
 
     public function test_all_admin_pages_render(): void
@@ -49,6 +50,12 @@ class AdminPanelTest extends TestCase
         $tag = Tag::query()->first();
         $slide = HeroSlide::query()->first();
         $page = Page::query()->first();
+        $message = ContactMessage::create([
+            'name' => 'Test Visitor',
+            'email' => 'visitor@example.com',
+            'message' => 'A test contact message for the admin panel.',
+            'locale' => 'en',
+        ]);
 
         $urls = [
             '/admin',
@@ -68,6 +75,8 @@ class AdminPanelTest extends TestCase
             '/admin/pages/create',
             "/admin/pages/{$page->id}/edit",
             '/admin/manage-settings',
+            '/admin/contact-messages',
+            "/admin/contact-messages/{$message->id}",
         ];
 
         foreach ($urls as $url) {

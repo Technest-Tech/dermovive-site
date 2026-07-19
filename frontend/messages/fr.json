@@ -188,16 +188,17 @@
     "address": "Adresse",
     "form": {
       "title": "Envoyez-nous un message",
-      "note": "Remplissez le formulaire et notre équipe vous répondra dès que possible.",
+      "note": "Remplissez le formulaire et notre équipe vous répondra rapidement.",
       "name": "Votre nom",
       "email": "Votre e-mail",
-      "subject": "Sujet",
+      "phone": "Téléphone (facultatif)",
+      "subject": "Sujet (facultatif)",
       "message": "Message",
       "submit": "Envoyer le message",
-      "sending": "Envoi en cours…",
-      "success": "Merci. Votre message a bien été envoyé.",
-      "error": "Nous n'avons pas pu envoyer votre message. Veuillez réessayer.",
-      "unavailable": "Le formulaire de contact n'est pas encore configuré. Écrivez-nous ou appelez-nous."
+      "sending": "Envoi…",
+      "success": "Merci de nous avoir contactés ! Votre message a été envoyé — nous vous répondrons bientôt.",
+      "error": "Désolé, une erreur s'est produite. Veuillez réessayer ou nous écrire directement.",
+      "sendAnother": "Envoyer un autre message"
     }
   },
   "whatsapp": {
