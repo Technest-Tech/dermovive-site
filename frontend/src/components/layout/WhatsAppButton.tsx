@@ -1,10 +1,11 @@
 import { useTranslations } from "next-intl";
+import { digitsOnlyPhone } from "@/lib/contact";
 
 type WhatsAppButtonProps = {
   phone: string;
 };
 
-function WhatsAppIcon({ className }: { className?: string }) {
+export function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
@@ -27,7 +28,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export function WhatsAppButton({ phone }: WhatsAppButtonProps) {
   const t = useTranslations("whatsapp");
-  const number = phone.replace(/\D/g, "");
+  const number = digitsOnlyPhone(phone);
 
   if (!number) return null;
 

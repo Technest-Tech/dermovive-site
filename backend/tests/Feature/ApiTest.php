@@ -191,7 +191,11 @@ class ApiTest extends TestCase
 
         $this->getJson('/api/v1/settings')
             ->assertOk()
-            ->assertJsonPath('data.site_name', 'Dermovive Pharma');
+            ->assertJsonPath('data.site_name', 'Dermovive Pharma')
+            ->assertJsonPath('data.contact_email', 'dermovivepharmasn@gmail.com')
+            ->assertJsonPath('data.whatsapp_number', '+221774862247')
+            ->assertJsonPath('data.facebook_url', 'https://www.facebook.com/people/Dermovive-pharma/61578885461744/')
+            ->assertJsonPath('data.tiktok_url', 'https://www.tiktok.com/@dermovive_pharma');
     }
 
     public function test_contact_message_is_validated_and_stored(): void

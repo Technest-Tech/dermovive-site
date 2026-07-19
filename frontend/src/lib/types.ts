@@ -77,6 +77,9 @@ export type Settings = {
   contact_email?: string;
   contact_phone?: string;
   address?: string;
+  facebook_url?: string;
+  tiktok_url?: string;
+  whatsapp_number?: string;
   [key: string]: string | undefined;
 };
 

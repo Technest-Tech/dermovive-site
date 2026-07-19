@@ -32,7 +32,7 @@ class ManageSettings extends Page implements HasForms
     /** Setting keys managed by this page. */
     protected const KEYS = [
         'site_name', 'tagline', 'contact_email', 'contact_phone',
-        'address', 'instagram_url', 'facebook_url', 'whatsapp_number',
+        'address', 'instagram_url', 'facebook_url', 'tiktok_url', 'whatsapp_number',
     ];
 
     public function mount(): void
@@ -60,10 +60,11 @@ class ManageSettings extends Page implements HasForms
                         Forms\Components\Textarea::make('address')->rows(2)->columnSpanFull(),
                     ]),
                 Forms\Components\Section::make('Social')
-                    ->columns(3)
+                    ->columns(2)
                     ->schema([
                         Forms\Components\TextInput::make('instagram_url')->url()->label('Instagram URL'),
                         Forms\Components\TextInput::make('facebook_url')->url()->label('Facebook URL'),
+                        Forms\Components\TextInput::make('tiktok_url')->url()->label('TikTok URL'),
                         Forms\Components\TextInput::make('whatsapp_number')->tel()->label('WhatsApp number'),
                     ]),
             ])

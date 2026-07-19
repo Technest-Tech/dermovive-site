@@ -283,7 +283,10 @@ class CatalogSeeder extends Seeder
         Setting::set('site_name', 'Dermovive Pharma');
         Setting::set('tagline', 'Innovative, safe and effective skincare — crafted for African and international skin.');
         Setting::set('contact_email', 'dermovivepharmasn@gmail.com');
-        Setting::set('contact_phone', '+221 77 486 2247');
+        Setting::set('contact_phone', '+221 77 486 22 47');
+        Setting::set('whatsapp_number', '+221774862247');
+        Setting::set('facebook_url', 'https://www.facebook.com/people/Dermovive-pharma/61578885461744/');
+        Setting::set('tiktok_url', 'https://www.tiktok.com/@dermovive_pharma');
         Setting::set('address', 'Dakar, Sénégal');
     }
 

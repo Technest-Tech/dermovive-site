@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { getCategoryTree, getSettings } from "@/lib/queries";
 import { SITE_URL } from "@/lib/seo";
+import { CONTACT_PHONE } from "@/lib/contact";
 import "../globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -91,9 +92,13 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer settings={settings} />
-          {settings?.contact_phone && (
-            <WhatsAppButton phone={settings.contact_phone} />
-          )}
+          <WhatsAppButton
+            phone={
+              settings?.whatsapp_number ||
+              settings?.contact_phone ||
+              CONTACT_PHONE
+            }
+          />
         </NextIntlClientProvider>
       </body>
     </html>
