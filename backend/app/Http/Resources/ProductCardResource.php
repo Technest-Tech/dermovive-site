@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use App\Enums\ProductBadge;
 use App\Http\Resources\Concerns\InteractsWithMediaUrls;
+use App\Models\Product;
+use App\Support\PriceConverter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -11,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * Lightweight product representation for listings, grids and carousels.
  * The full detail payload is {@see ProductResource}, which extends this.
  *
- * @mixin \App\Models\Product
+ * @mixin Product
  */
 class ProductCardResource extends JsonResource
 {
@@ -27,6 +29,9 @@ class ProductCardResource extends JsonResource
             'price' => $this->price !== null ? (float) $this->price : null,
             'compare_at_price' => $this->compare_at_price !== null ? (float) $this->compare_at_price : null,
             'currency' => $this->currency,
+            'egp_price' => PriceConverter::toEgp($this->price, $this->currency),
+            'egp_compare_at_price' => PriceConverter::toEgp($this->compare_at_price, $this->currency),
+            'usd_to_egp_rate' => PriceConverter::usdToEgpRate(),
             'is_featured' => (bool) $this->is_featured,
             'badges' => $this->badgePayload(),
             'primary_category' => $this->whenLoaded('primaryCategory', fn () => $this->primaryCategory ? [

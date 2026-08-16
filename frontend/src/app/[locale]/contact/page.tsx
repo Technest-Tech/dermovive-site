@@ -6,7 +6,12 @@ import { CmsContent } from "@/components/content/CmsContent";
 import { ContactForm } from "@/components/content/ContactForm";
 import { getPage, getSettings } from "@/lib/queries";
 import { alternatesFor } from "@/lib/seo";
-import { CONTACT_EMAIL, CONTACT_PHONE, digitsOnlyPhone } from "@/lib/contact";
+import {
+  CONTACT_ADDRESS,
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  digitsOnlyPhone,
+} from "@/lib/contact";
 
 type Params = Promise<{ locale: string }>;
 
@@ -41,6 +46,7 @@ export default async function ContactPage({ params }: { params: Params }) {
   const title = page?.title ?? tn("contact");
   const email = settings?.contact_email || CONTACT_EMAIL;
   const phone = settings?.contact_phone || CONTACT_PHONE;
+  const address = settings?.address || CONTACT_ADDRESS;
   const details = [
     {
       icon: Mail,
@@ -55,10 +61,10 @@ export default async function ContactPage({ params }: { params: Params }) {
       href: `tel:+${digitsOnlyPhone(phone)}`,
       ltr: true,
     },
-    settings?.address && {
+    {
       icon: MapPin,
       label: t("address"),
-      value: settings.address,
+      value: address,
     },
   ].filter(Boolean) as {
     icon: typeof Mail;

@@ -7,9 +7,12 @@ import { buttonClasses } from "@/components/ui/Button";
 import {
   CONTACT_EMAIL,
   CONTACT_PHONE,
+  CONTACT_ADDRESS,
+  EGYPT_PHONE,
   FACEBOOK_URL,
   TIKTOK_URL,
   digitsOnlyPhone,
+  egyptPhoneHref,
 } from "@/lib/contact";
 import type { Settings } from "@/lib/types";
 
@@ -42,7 +45,8 @@ export function Footer({ settings }: { settings: Settings | null }) {
 
   const email = settings?.contact_email || CONTACT_EMAIL;
   const phone = settings?.contact_phone || CONTACT_PHONE;
-  const address = settings?.address;
+  const egyptPhone = settings?.egypt_phone || EGYPT_PHONE;
+  const address = settings?.address || CONTACT_ADDRESS;
   const facebookUrl = settings?.facebook_url || FACEBOOK_URL;
   const tiktokUrl = settings?.tiktok_url || TIKTOK_URL;
   const whatsappNumber =
@@ -151,6 +155,17 @@ export function Footer({ settings }: { settings: Settings | null }) {
                   </a>
                 </li>
               )}
+              <li>
+                <a
+                  href={`tel:${egyptPhoneHref(egyptPhone)}`}
+                  aria-label={`Egypt: ${egyptPhone}`}
+                  dir="ltr"
+                  className="inline-flex items-center gap-2 hover:text-coral-300 rtl:flex-row-reverse"
+                >
+                  <Phone className="h-4 w-4 shrink-0" />
+                  {egyptPhone}
+                </a>
+              </li>
               {address && (
                 <li className="inline-flex items-center gap-2">
                   <MapPin className="h-4 w-4 shrink-0" />

@@ -36,6 +36,9 @@ export type ProductCard = {
   price: number | null;
   compare_at_price: number | null;
   currency: string;
+  egp_price: number | null;
+  egp_compare_at_price: number | null;
+  usd_to_egp_rate: number;
   is_featured: boolean;
   badges: ProductBadge[];
   primary_category?: CategoryRef | null;
@@ -76,11 +79,13 @@ export type Settings = {
   tagline?: string;
   contact_email?: string;
   contact_phone?: string;
+  egypt_phone?: string;
   address?: string;
+  usd_to_egp_rate?: string | number;
   facebook_url?: string;
   tiktok_url?: string;
   whatsapp_number?: string;
-  [key: string]: string | undefined;
+  [key: string]: string | number | undefined;
 };
 
 /** A single filter tag (skin type / concern / highlight), locale-resolved. */
@@ -137,6 +142,7 @@ export type ProductVariant = {
   name: string;
   sku: string | null;
   price: number | null;
+  egp_price: number | null;
   is_default: boolean;
 };
 

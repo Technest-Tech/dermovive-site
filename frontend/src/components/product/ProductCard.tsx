@@ -2,7 +2,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { MediaImage } from "@/components/ui/MediaImage";
-import { discountPercent, formatPrice } from "@/lib/format";
+import { discountPercent, formatEgpPrice, formatPrice } from "@/lib/format";
 import type { ProductCard as ProductCardType } from "@/lib/types";
 
 const cardSizes =
@@ -15,6 +15,8 @@ export function ProductCard({ product }: { product: ProductCardType }) {
 
   const price = formatPrice(product.price, product.currency, locale);
   const compareAt = formatPrice(product.compare_at_price, product.currency, locale);
+  const egpPrice = formatEgpPrice(product.egp_price, locale);
+  const egpCompareAt = formatEgpPrice(product.egp_compare_at_price, locale);
   const discount = discountPercent(product.price, product.compare_at_price);
 
   return (
@@ -66,12 +68,24 @@ export function ProductCard({ product }: { product: ProductCardType }) {
           </h3>
           {price && (
             <div className="mt-auto flex items-end justify-between gap-3 border-t border-teal-700/10 pt-3">
-              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                <span className="text-[0.95rem] font-extrabold text-ink">{price}</span>
-                {compareAt && (
-                  <span className="text-xs font-medium text-muted line-through">
-                    {compareAt}
-                  </span>
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                  <span className="text-[0.95rem] font-extrabold text-ink">{price}</span>
+                  {compareAt && (
+                    <span className="text-xs font-medium text-muted line-through">
+                      {compareAt}
+                    </span>
+                  )}
+                </div>
+                {egpPrice && product.currency !== "EGP" && (
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                    <span className="text-sm font-bold text-teal-700">{egpPrice}</span>
+                    {egpCompareAt && (
+                      <span className="text-xs font-medium text-muted line-through">
+                        {egpCompareAt}
+                      </span>
+                    )}
+                  </div>
                 )}
               </div>
             </div>

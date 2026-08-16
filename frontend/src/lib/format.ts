@@ -21,6 +21,23 @@ export function formatPrice(
   }
 }
 
+/** Format the Egyptian payment price without fractional piastres in the storefront. */
+export function formatEgpPrice(
+  amount: number | null | undefined,
+  locale: string,
+): string | null {
+  if (amount == null) return null;
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: "EGP",
+      maximumFractionDigits: 0,
+    }).format(amount);
+  } catch {
+    return `${Math.round(amount)} EGP`;
+  }
+}
+
 /** Discount percentage when a compare-at price is set and higher than the price. */
 export function discountPercent(
   price: number | null | undefined,

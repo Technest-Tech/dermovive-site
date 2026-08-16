@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ProductVariant;
+use App\Support\PriceConverter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin \App\Models\ProductVariant
+ * @mixin ProductVariant
  */
 class ProductVariantResource extends JsonResource
 {
@@ -17,6 +19,7 @@ class ProductVariantResource extends JsonResource
             'name' => $this->name,
             'sku' => $this->sku,
             'price' => $this->price !== null ? (float) $this->price : null,
+            'egp_price' => PriceConverter::toEgp($this->price, $this->product?->currency),
             'is_default' => (bool) $this->is_default,
         ];
     }

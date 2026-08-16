@@ -6,7 +6,7 @@ import { Heart, ShoppingBag, MessageCircle } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { buttonClasses } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import { discountPercent, formatPrice } from "@/lib/format";
+import { discountPercent, formatEgpPrice, formatPrice } from "@/lib/format";
 import type { ProductVariant } from "@/lib/types";
 
 /**
@@ -17,12 +17,16 @@ import type { ProductVariant } from "@/lib/types";
  */
 export function ProductBuyBox({
   basePrice,
+  baseEgpPrice,
   compareAt,
+  compareAtEgp,
   currency,
   variants,
 }: {
   basePrice: number | null;
+  baseEgpPrice: number | null;
   compareAt: number | null;
+  compareAtEgp: number | null;
   currency: string;
   variants: ProductVariant[];
 }) {
@@ -38,20 +42,32 @@ export function ProductBuyBox({
   const price = variant?.price ?? basePrice;
   const priceLabel = formatPrice(price, currency, locale);
   const compareLabel = formatPrice(compareAt, currency, locale);
+  const egpPriceLabel = formatEgpPrice(variant?.egp_price ?? baseEgpPrice, locale);
+  const egpCompareLabel = formatEgpPrice(compareAtEgp, locale);
   const discount = discountPercent(price, compareAt);
 
   return (
     <div className="space-y-6">
       {priceLabel && (
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="text-3xl font-semibold text-ink">{priceLabel}</span>
-          {compareLabel && discount !== null && (
-            <>
-              <span className="text-lg text-muted line-through">{compareLabel}</span>
-              <span className="rounded-pill bg-coral-500 px-2.5 py-1 text-xs font-semibold text-white shadow-[var(--shadow-coral)]">
-                {t("save", { percent: discount })}
-              </span>
-            </>
+        <div className="space-y-2">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-3xl font-semibold text-ink">{priceLabel}</span>
+            {compareLabel && discount !== null && (
+              <>
+                <span className="text-lg text-muted line-through">{compareLabel}</span>
+                <span className="rounded-pill bg-coral-500 px-2.5 py-1 text-xs font-semibold text-white shadow-[var(--shadow-coral)]">
+                  {t("save", { percent: discount })}
+                </span>
+              </>
+            )}
+          </div>
+          {egpPriceLabel && currency !== "EGP" && (
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xl font-semibold text-teal-700">{egpPriceLabel}</span>
+              {egpCompareLabel && discount !== null && (
+                <span className="text-sm text-muted line-through">{egpCompareLabel}</span>
+              )}
+            </div>
           )}
         </div>
       )}

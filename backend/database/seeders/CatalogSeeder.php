@@ -270,9 +270,9 @@ class CatalogSeeder extends Seeder
         Page::create([
             'title' => ['en' => 'Contact', 'ar' => 'تواصلي معنا', 'fr' => 'Contact'],
             'body' => [
-                'en' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Dermovive skincare product collection" /></figure><p>Questions about our products? Our team is here to help you choose the right Dermovive routine for your skin.</p><ul><li><strong>Email:</strong> dermovivepharmasn@gmail.com</li><li><strong>Phone:</strong> +221 77 486 2247</li><li><strong>Address:</strong> Dakar, Sénégal</li></ul>',
-                'ar' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="مجموعة منتجات ديرموفيف للعناية بالبشرة" /></figure><p>هل لديك أسئلة حول منتجاتنا؟ فريقنا هنا لمساعدتك على اختيار روتين ديرموفيف المناسب لبشرتك.</p><ul><li><strong>البريد الإلكتروني:</strong> dermovivepharmasn@gmail.com</li><li><strong>الهاتف:</strong> +221 77 486 2247</li><li><strong>العنوان:</strong> داكار، السنغال</li></ul>',
-                'fr' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Collection de produits de soin Dermovive" /></figure><p>Des questions sur nos produits ? Notre équipe vous aide à choisir le rituel Dermovive adapté à votre peau.</p><ul><li><strong>E-mail :</strong> dermovivepharmasn@gmail.com</li><li><strong>Téléphone :</strong> +221 77 486 2247</li><li><strong>Adresse :</strong> Dakar, Sénégal</li></ul>',
+                'en' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Dermovive skincare product collection" /></figure><p>Questions about our products? Our team is here to help you choose the right Dermovive routine for your skin.</p><ul><li><strong>Email:</strong> dermovivepharmasn@gmail.com</li><li><strong>Egypt phone:</strong> 01002058424</li><li><strong>WhatsApp:</strong> +221 77 486 22 47</li><li><strong>Address:</strong> Nasr City, Cairo, Egypt</li></ul>',
+                'ar' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="مجموعة منتجات ديرموفيف للعناية بالبشرة" /></figure><p>هل لديك أسئلة حول منتجاتنا؟ فريقنا هنا لمساعدتك على اختيار روتين ديرموفيف المناسب لبشرتك.</p><ul><li><strong>البريد الإلكتروني:</strong> dermovivepharmasn@gmail.com</li><li><strong>هاتف مصر:</strong> 01002058424</li><li><strong>واتساب:</strong> +221 77 486 22 47</li><li><strong>العنوان:</strong> مدينة نصر، القاهرة</li></ul>',
+                'fr' => '<figure><img src="/brand/collection-dermo-white.jpg" alt="Collection de produits de soin Dermovive" /></figure><p>Des questions sur nos produits ? Notre équipe vous aide à choisir le rituel Dermovive adapté à votre peau.</p><ul><li><strong>E-mail :</strong> dermovivepharmasn@gmail.com</li><li><strong>Téléphone Égypte :</strong> 01002058424</li><li><strong>WhatsApp :</strong> +221 77 486 22 47</li><li><strong>Adresse :</strong> Nasr City, Le Caire, Égypte</li></ul>',
             ],
             'is_published' => true,
         ]);
@@ -284,10 +284,12 @@ class CatalogSeeder extends Seeder
         Setting::set('tagline', 'Innovative, safe and effective skincare — crafted for African and international skin.');
         Setting::set('contact_email', 'dermovivepharmasn@gmail.com');
         Setting::set('contact_phone', '+221 77 486 22 47');
+        Setting::set('egypt_phone', '01002058424');
         Setting::set('whatsapp_number', '+221774862247');
         Setting::set('facebook_url', 'https://www.facebook.com/people/Dermovive-pharma/61578885461744/');
         Setting::set('tiktok_url', 'https://www.tiktok.com/@dermovive_pharma');
-        Setting::set('address', 'Dakar, Sénégal');
+        Setting::set('address', 'مدينة نصر، القاهرة');
+        Setting::set('usd_to_egp_rate', '51.5');
     }
 
     protected function seedCategoryMedia(): void

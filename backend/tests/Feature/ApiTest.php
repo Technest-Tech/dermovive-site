@@ -68,12 +68,16 @@ class ApiTest extends TestCase
         $res = $this->getJson('/api/v1/products')->assertOk();
 
         $res->assertJsonStructure([
-            'data' => [['id', 'slug', 'name', 'price', 'currency', 'badges', 'image']],
+            'data' => [[
+                'id', 'slug', 'name', 'price', 'currency', 'egp_price',
+                'egp_compare_at_price', 'usd_to_egp_rate', 'badges', 'image',
+            ]],
             'links' => ['first', 'last', 'prev', 'next'],
             'meta' => ['current_page', 'last_page', 'per_page', 'total'],
         ]);
 
         $this->assertSame(7, $res->json('meta.total'));
+        $this->assertSame(51.5, $res->json('data.0.usd_to_egp_rate'));
     }
 
     public function test_products_filters(): void
@@ -137,13 +141,14 @@ class ApiTest extends TestCase
         $res->assertJsonStructure([
             'data' => [
                 'slug', 'sku', 'description', 'ingredients', 'benefits', 'how_to_use',
-                'gallery', 'variants' => [['name', 'sku', 'is_default']],
+                'gallery', 'variants' => [['name', 'sku', 'egp_price', 'is_default']],
                 'tags', 'categories', 'meta' => ['title', 'description'], 'related',
             ],
         ]);
 
         $this->assertIsArray($res->json('data.benefits'));
         $this->assertCount(1, $res->json('data.variants'));
+        $this->assertEquals(1442.0, $res->json('data.egp_price'));
     }
 
     public function test_translatable_fields_resolve_per_locale(): void
@@ -193,6 +198,9 @@ class ApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.site_name', 'Dermovive Pharma')
             ->assertJsonPath('data.contact_email', 'dermovivepharmasn@gmail.com')
+            ->assertJsonPath('data.egypt_phone', '01002058424')
+            ->assertJsonPath('data.address', 'مدينة نصر، القاهرة')
+            ->assertJsonPath('data.usd_to_egp_rate', '51.5')
             ->assertJsonPath('data.whatsapp_number', '+221774862247')
             ->assertJsonPath('data.facebook_url', 'https://www.facebook.com/people/Dermovive-pharma/61578885461744/')
             ->assertJsonPath('data.tiktok_url', 'https://www.tiktok.com/@dermovive_pharma');

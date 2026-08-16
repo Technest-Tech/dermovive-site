@@ -32,7 +32,8 @@ class ManageSettings extends Page implements HasForms
     /** Setting keys managed by this page. */
     protected const KEYS = [
         'site_name', 'tagline', 'contact_email', 'contact_phone',
-        'address', 'instagram_url', 'facebook_url', 'tiktok_url', 'whatsapp_number',
+        'egypt_phone', 'address', 'usd_to_egp_rate',
+        'instagram_url', 'facebook_url', 'tiktok_url', 'whatsapp_number',
     ];
 
     public function mount(): void
@@ -57,7 +58,19 @@ class ManageSettings extends Page implements HasForms
                     ->schema([
                         Forms\Components\TextInput::make('contact_email')->email(),
                         Forms\Components\TextInput::make('contact_phone')->tel(),
+                        Forms\Components\TextInput::make('egypt_phone')
+                            ->tel()
+                            ->label('Egypt phone'),
                         Forms\Components\Textarea::make('address')->rows(2)->columnSpanFull(),
+                    ]),
+                Forms\Components\Section::make('Pricing')
+                    ->schema([
+                        Forms\Components\TextInput::make('usd_to_egp_rate')
+                            ->label('USD to EGP rate')
+                            ->numeric()
+                            ->minValue(0.01)
+                            ->step(0.01)
+                            ->required(),
                     ]),
                 Forms\Components\Section::make('Social')
                     ->columns(2)

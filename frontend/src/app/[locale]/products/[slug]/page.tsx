@@ -52,13 +52,26 @@ function productJsonLd(product: ProductDetail, url: string) {
     image: product.gallery.map((image) => image.original),
     brand: { "@type": "Brand", name: "Dermovive Pharma" },
     ...(product.price != null && {
-      offers: {
-        "@type": "Offer",
-        price: product.price,
-        priceCurrency: product.currency,
-        availability: "https://schema.org/InStock",
-        url,
-      },
+      offers: [
+        {
+          "@type": "Offer",
+          price: product.price,
+          priceCurrency: product.currency,
+          availability: "https://schema.org/InStock",
+          url,
+        },
+        ...(product.egp_price != null && product.currency !== "EGP"
+          ? [
+              {
+                "@type": "Offer",
+                price: product.egp_price,
+                priceCurrency: "EGP",
+                availability: "https://schema.org/InStock",
+                url,
+              },
+            ]
+          : []),
+      ],
     }),
   };
 }
@@ -131,7 +144,9 @@ export default async function ProductPage({ params }: { params: Params }) {
             <div className="mt-8">
               <ProductBuyBox
                 basePrice={product.price}
+                baseEgpPrice={product.egp_price}
                 compareAt={product.compare_at_price}
+                compareAtEgp={product.egp_compare_at_price}
                 currency={product.currency}
                 variants={product.variants}
               />

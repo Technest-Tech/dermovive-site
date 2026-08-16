@@ -104,7 +104,9 @@ class ProductController extends Controller
                     'categories',
                     'tags',
                     'media',
-                    'variants' => fn ($q) => $q->where('is_active', true)->orderBy('sort_order'),
+                    'variants' => fn ($q) => $q->where('is_active', true)
+                        ->with('product')
+                        ->orderBy('sort_order'),
                 ])
                 ->firstOrFail();
 
