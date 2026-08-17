@@ -223,6 +223,11 @@
       "subtitle": "La science du soin, les nouveautés et les rituels — dans votre boîte mail.",
       "placeholder": "Votre adresse e-mail",
       "cta": "S'abonner"
+    },
+    "legal": {
+      "refund": "Politique de remboursement",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
     }
   },
   "designSystem": {

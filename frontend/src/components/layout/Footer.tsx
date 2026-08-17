@@ -22,6 +22,12 @@ const exploreLinks = [
   { key: "contact", href: "/contact" },
 ] as const;
 
+const legalLinks = [
+  { key: "refund", href: "/refund-policy" },
+  { key: "privacy", href: "/privacy-policy" },
+  { key: "terms", href: "/terms-of-service" },
+] as const;
+
 function FacebookIcon({ className }: { className?: string }) {
   return (
     <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -180,11 +186,22 @@ export function Footer({ settings }: { settings: Settings | null }) {
       </div>
 
       <div className="border-t border-cream/10">
-        <div className="container-page flex flex-col items-center justify-between gap-2 py-5 text-xs text-teal-100/60 sm:flex-row">
+        <div className="container-page flex flex-col items-center justify-between gap-3 py-5 text-xs text-teal-100/60 sm:flex-row">
           <p>{t("rights", { year })}</p>
-          <Link href="/design-system" className="hover:text-coral-300">
-            Design System
-          </Link>
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            {legalLinks.map((link) => (
+              <Link
+                key={link.key}
+                href={link.href}
+                className="hover:text-coral-300"
+              >
+                {t(`legal.${link.key}`)}
+              </Link>
+            ))}
+            <Link href="/design-system" className="hover:text-coral-300">
+              Design System
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

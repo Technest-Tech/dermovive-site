@@ -223,6 +223,11 @@
       "subtitle": "Skincare science, new arrivals, and rituals — in your inbox.",
       "placeholder": "Your email address",
       "cta": "Subscribe"
+    },
+    "legal": {
+      "refund": "Refund Policy",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
     }
   },
   "designSystem": {

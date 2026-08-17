@@ -24,7 +24,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getProducts({ per_page: "48" }, defaultLocale),
   ]);
 
-  const staticPaths = ["/", "/products", "/contact"];
+  const staticPaths = [
+    "/",
+    "/products",
+    "/contact",
+    "/refund-policy",
+    "/privacy-policy",
+    "/terms-of-service",
+  ];
   const categoryPaths = categorySlugs(tree).map((slug) => `/categories/${slug}`);
   const productPaths = products.data.map((product) => `/products/${product.slug}`);
   const paths = [...staticPaths, ...categoryPaths, ...productPaths];
